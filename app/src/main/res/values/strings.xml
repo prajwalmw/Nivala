@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Nivala</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_selfiepoint">Selfie</string>
+    <string name="title_give">Give</string>
+    <string name="title_donate">Donate</string>
+    <string name="title_chat">Chat</string>
 </resources>

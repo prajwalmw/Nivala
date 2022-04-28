@@ -1,4 +1,4 @@
-package com.example.nivala.ui.notifications;
+package com.example.nivala.ui.give;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
