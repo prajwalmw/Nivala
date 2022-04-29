@@ -62,14 +62,16 @@
 
         <ImageView
             android:id="@+id/timer_imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_calendar_today_24"
             tools:layout_editor_absoluteX="321dp"
             tools:layout_editor_absoluteY="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
+            android:padding="7dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/circular_shape_bg"/>
 
         <TextView
             android:id="@+id/title_textview"
