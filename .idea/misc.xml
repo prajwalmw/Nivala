@@ -8,8 +8,12 @@
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_donate_24.xml" value="0.183" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_give_24.xml" value="0.183" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.123" />
+        <entry key="..\:/Nivala/app/src/main/res/drawable/ic_language_24.xml" value="0.123" />
+        <entry key="..\:/Nivala/app/src/main/res/drawable/ic_location_on_24.xml" value="0.123" />
+        <entry key="..\:/Nivala/app/src/main/res/drawable/ic_logout_24.xml" value="0.123" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.123" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_selfiepoint_24.xml" value="0.123" />
+        <entry key="..\:/Nivala/app/src/main/res/drawable/ic_settings_24.xml" value="0.123" />
         <entry key="..\:/Nivala/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_chat.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_dashboard.xml" value="0.20416666666666666" />
@@ -17,8 +21,9 @@
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_notifications.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_take.xml" value="0.20416666666666666" />
-        <entry key="..\:/Nivala/app/src/main/res/layout/take_listitem.xml" value="0.25" />
+        <entry key="..\:/Nivala/app/src/main/res/layout/take_listitem.xml" value="0.18518518518518517" />
         <entry key="..\:/Nivala/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Nivala/app/src/main/res/menu/home_screen.xml" value="0.18518518518518517" />
       </map>
     </option>
   </component>
