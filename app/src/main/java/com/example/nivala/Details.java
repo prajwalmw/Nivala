@@ -15,7 +15,7 @@ import java.io.IOException;
 public class Details extends AppCompatActivity {
     private ActivityDetailsBinding binding;
     private Intent intent;
-    private String imageFileName;
+    private String imageFileName = "";
     private File storageDir;
 
     @Override
@@ -25,27 +25,12 @@ public class Details extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         intent = getIntent();
-        if(intent != null) {
+        if (intent != null)
             imageFileName = intent.getStringExtra("imageFilename");
-        }
         storageDir = this.getExternalFilesDir("Pictures");  //external sd card
         storageDir = new File(storageDir, imageFileName);
-        if(!storageDir.exists())
-        {
+        if (!storageDir.exists())
             storageDir.mkdirs();
-        }
-
-
-
-//        try {
-//            image = File.createTempFile(
-//                    imageFileName,  /* prefix */
-//                    ".jpg",         /* suffix */
-//                    storageDir      /* directory */
-//            );
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         Log.v("Image", "Image_details: " + imageFileName);
         Log.v("Image", "Image_File_detials: " + storageDir.getAbsolutePath());

@@ -119,7 +119,6 @@ public class GiveFragment extends Fragment {
                 }
                 break;
         }
-
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
@@ -139,7 +138,7 @@ public class GiveFragment extends Fragment {
             e.printStackTrace();
         }
 
-        imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
+        imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -160,7 +159,6 @@ public class GiveFragment extends Fragment {
             }
         });
     }
-
 
     private void startCamera() {
 
@@ -200,19 +198,12 @@ public class GiveFragment extends Fragment {
                 .setTargetRotation(this.getActivity().getWindowManager().getDefaultDisplay().getRotation())
                 .build();
         preview.setSurfaceProvider(binding.mpreview.getSurfaceProvider());
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageAnalysis, imageCapture);
 
-//        binding.captureBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
     }
 
     private File createImageFile() throws IOException {
         // Create an image file name
-      //  String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String mCurrentPhotoPath = "";
         String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(new Date());
         imageFileName = timeStamp + ".jpg";
@@ -220,10 +211,9 @@ public class GiveFragment extends Fragment {
         File storageDir = this.getActivity().getExternalFilesDir("Pictures");  //external sd card
         storageDir = new File(storageDir, imageFileName);
 
-        if(!storageDir.exists())
-        {
-            if (!storageDir.mkdirs()){
-                Log.e("noDir","No directory created ");
+        if (!storageDir.exists()) {
+            if (!storageDir.mkdirs()) {
+                Log.e("noDir", "No directory created ");
             }
             storageDir.mkdirs();
         }
