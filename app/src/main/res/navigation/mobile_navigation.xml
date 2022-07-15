@@ -21,7 +21,8 @@
         android:id="@+id/navigation_give"
         android:name="com.example.nivala.ui.give.GiveFragment"
         android:label="@string/title_give"
-        tools:layout="@layout/fragment_give" />
+        tools:layout="@layout/fragment_give" >
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_donate"

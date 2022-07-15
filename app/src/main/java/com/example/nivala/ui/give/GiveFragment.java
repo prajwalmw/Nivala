@@ -2,9 +2,12 @@ package com.example.nivala.ui.give;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaActionSound;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -138,6 +141,8 @@ public class GiveFragment extends Fragment {
             e.printStackTrace();
         }
 
+        cameraSound();
+
         imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
@@ -158,6 +163,20 @@ public class GiveFragment extends Fragment {
                 error.printStackTrace();
             }
         });
+    }
+
+    private void cameraSound() {
+        AudioManager audio = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        switch( audio.getRingerMode() ){
+            case AudioManager.RINGER_MODE_NORMAL:
+                MediaActionSound sound = new MediaActionSound();
+                sound.play(MediaActionSound.SHUTTER_CLICK);
+                break;
+            case AudioManager.RINGER_MODE_SILENT:
+                break;
+            case AudioManager.RINGER_MODE_VIBRATE:
+                break;
+        }
     }
 
     private void startCamera() {

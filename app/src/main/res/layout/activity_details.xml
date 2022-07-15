@@ -11,28 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="scrollview"
+        android:layout_gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/capturedImageView"
-            android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:background="#CFC3C3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/food" />
-
         <TextView
             android:id="@+id/title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="25dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Title"
+            android:text="Food Item(s)"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/title_editText"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,27 +33,44 @@
             android:id="@+id/title_editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:ems="10"
             android:hint="Enter your title"
             android:inputType="textPersonName"
             android:minHeight="48dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/title_textview"
-            app:layout_constraintTop_toBottomOf="@+id/capturedImageView" />
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Food Type Title End-->
+
+        <!--        Quantity Start -->
+        <!--        Quantity End-->
+
+        <TextView
+            android:id="@+id/quantity_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Quantity"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout_Quantity"
+            app:layout_constraintEnd_toEndOf="@+id/title_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/title_textview"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout_Quantity" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
-            android:text="Type"
+            android:text="Food Type"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
-            app:layout_constraintEnd_toEndOf="@+id/title_textview"
-            app:layout_constraintStart_toStartOf="@+id/title_textview"
-            app:layout_constraintTop_toTopOf="@+id/radioGroup"
-            app:layout_constraintVertical_bias="0.545" />
+            app:layout_constraintEnd_toEndOf="@+id/quantity_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/quantity_textview"
+            app:layout_constraintTop_toTopOf="@+id/radioGroup" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
@@ -70,9 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/title_editText"
-            app:layout_constraintStart_toStartOf="@+id/title_editText"
-            app:layout_constraintTop_toBottomOf="@+id/title_editText">
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout_Quantity"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout_Quantity"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_Quantity">
 
             <RadioButton
                 android:id="@+id/radioButton2"
@@ -99,8 +107,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/expiry_editText"
-            app:layout_constraintVertical_bias="0.576" />
+            app:layout_constraintTop_toTopOf="@+id/expiry_editText" />
 
         <EditText
             android:id="@+id/expiry_editText"
@@ -112,15 +119,16 @@
             android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/radioGroup"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/radioGroup"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/address_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
-            android:text="Address"
+            android:text="Pickup Address"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/address_editText"
             app:layout_constraintEnd_toEndOf="@+id/textView5"
@@ -136,9 +144,66 @@
             android:ems="10"
             android:hint="Enter your Address"
             android:inputType="textPersonName"
+            android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/expiry_editText"
             app:layout_constraintStart_toStartOf="@+id/expiry_editText"
             app:layout_constraintTop_toBottomOf="@+id/expiry_editText" />
+
+        <!--        Pickup Date-->
+        <TextView
+            android:id="@+id/pickupDate_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Pickup Date"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/pickupDate_editText"
+            app:layout_constraintEnd_toEndOf="@+id/address_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/address_textview"
+            app:layout_constraintTop_toTopOf="@+id/pickupDate_editText" />
+
+        <EditText
+            android:id="@+id/pickupDate_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Enter your Pickup Date"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/address_editText"
+            app:layout_constraintStart_toStartOf="@+id/address_editText"
+            app:layout_constraintTop_toBottomOf="@+id/address_editText" />
+        <!--        Pickup Date End-->
+
+        <!-- Pickup Time -->
+        <TextView
+            android:id="@+id/pickupTime_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Pickup Time"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/pickupTime_editText"
+            app:layout_constraintEnd_toEndOf="@+id/pickupDate_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/pickupDate_textview"
+            app:layout_constraintTop_toTopOf="@+id/pickupTime_editText" />
+
+        <EditText
+            android:id="@+id/pickupTime_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Enter your Pickup Time"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/pickupDate_editText"
+            app:layout_constraintStart_toStartOf="@+id/pickupDate_editText"
+            app:layout_constraintTop_toBottomOf="@+id/pickupDate_editText" />
+        <!--        Pickup Time End-->
 
         <TextView
             android:id="@+id/textView7"
@@ -148,9 +213,9 @@
             android:text="Phone"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/phone_editText"
-            app:layout_constraintEnd_toEndOf="@+id/textView6"
+            app:layout_constraintEnd_toEndOf="@+id/pickupTime_textview"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="@+id/pickupTime_textview"
             app:layout_constraintTop_toTopOf="@+id/phone_editText" />
 
         <EditText
@@ -161,22 +226,104 @@
             android:ems="10"
             android:hint="Enter your Phone number"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/address_editText"
-            app:layout_constraintStart_toStartOf="@+id/address_editText"
-            app:layout_constraintTop_toBottomOf="@+id/address_editText" />
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/pickupTime_editText"
+            app:layout_constraintStart_toStartOf="@+id/pickupTime_editText"
+            app:layout_constraintTop_toBottomOf="@+id/pickupTime_editText" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/submitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="Submit"
-            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone_editText"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/title_editText"
+            app:layout_constraintEnd_toEndOf="@+id/title_editText"
+            app:layout_constraintTop_toBottomOf="@+id/title_editText"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="-"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/circular_shape_bg"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="number"
+                android:text="20"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/button2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="+"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/circular_shape_bg"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/photos_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Photos"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView7"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/phone_editText" />
+
+        <ImageView
+            android:id="@+id/capturedImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/photos_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/photos_textview"
+            app:layout_constraintTop_toBottomOf="@+id/photos_textview"
+            app:srcCompat="@drawable/food" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="I assure that the food quality and hygiene is maintained"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/capturedImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

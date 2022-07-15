@@ -39,5 +39,10 @@ public class Details extends AppCompatActivity {
                 .load(storageDir)
                 .centerCrop()
                 .into(binding.capturedImageView);
+
+        binding.submitBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(Details.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 }
