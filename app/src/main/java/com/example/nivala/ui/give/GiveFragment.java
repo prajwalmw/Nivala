@@ -3,6 +3,7 @@ package com.example.nivala.ui.give;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.example.nivala.Details;
 import com.example.nivala.databinding.FragmentGiveBinding;
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -46,6 +48,8 @@ public class GiveFragment extends Fragment {
     private static final int REQUEST_CODE_PERMISSIONS = 100;
     private static final String[] REQUIRED_PERMISSIONS = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private FragmentGiveBinding binding;
+    ImageCapture imageCapture = null;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -127,9 +131,34 @@ public class GiveFragment extends Fragment {
     }
 
     private void takePhoto() {
+        ImageCapture.OutputFileOptions outputFileOptions = null;
+        try {
+            outputFileOptions = new ImageCapture.OutputFileOptions.Builder(createImageFile()).build();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
+            @Override
+            public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "Image Saved successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(GiveFragment.this.getActivity(), Details.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onError(@NonNull ImageCaptureException error) {
+                error.printStackTrace();
+            }
+        });
     }
 
-    private Executor executor = Executors.newSingleThreadExecutor();
+
     private void startCamera() {
 
         final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this.getActivity());
@@ -164,39 +193,18 @@ public class GiveFragment extends Fragment {
 
         ImageCapture.Builder builder = new ImageCapture.Builder();
 
-        final ImageCapture imageCapture = builder
+        imageCapture = builder
                 .setTargetRotation(this.getActivity().getWindowManager().getDefaultDisplay().getRotation())
                 .build();
         preview.setSurfaceProvider(binding.mpreview.getSurfaceProvider());
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
 
-        binding.captureBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageCapture.OutputFileOptions outputFileOptions = null;
-                try {
-                    outputFileOptions = new ImageCapture.OutputFileOptions.Builder(createImageFile()).build();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback () {
-                    @Override
-                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(), "Image Saved successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(@NonNull ImageCaptureException error) {
-                        error.printStackTrace();
-                    }
-                });
-            }
-        });
+//        binding.captureBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     private File createImageFile() throws IOException {
