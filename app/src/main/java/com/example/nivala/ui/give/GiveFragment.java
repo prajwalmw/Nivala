@@ -50,6 +50,7 @@ public class GiveFragment extends Fragment {
     private FragmentGiveBinding binding;
     ImageCapture imageCapture = null;
     private Executor executor = Executors.newSingleThreadExecutor();
+    private String imageFileName;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -146,7 +147,9 @@ public class GiveFragment extends Fragment {
                     public void run() {
                         Toast.makeText(getContext(), "Image Saved successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(GiveFragment.this.getActivity(), Details.class);
+                        intent.putExtra("imageFilename", imageFileName);
                         startActivity(intent);
+                        Log.v("Image", "Image: " + imageFileName);
                     }
                 });
             }
@@ -208,12 +211,15 @@ public class GiveFragment extends Fragment {
     }
 
     private File createImageFile() throws IOException {
-// Create an image file name
+        // Create an image file name
+      //  String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String mCurrentPhotoPath = "";
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);    //internal stoarge
+        String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(new Date());
+        imageFileName = timeStamp + ".jpg";
+
         File storageDir = this.getActivity().getExternalFilesDir("Pictures");  //external sd card
+        storageDir = new File(storageDir, imageFileName);
+
         if(!storageDir.exists())
         {
             if (!storageDir.mkdirs()){
@@ -221,15 +227,13 @@ public class GiveFragment extends Fragment {
             }
             storageDir.mkdirs();
         }
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-// Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
+        storageDir.createNewFile();
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = storageDir.getAbsolutePath();
+        Log.v("Image", "Image_File: " + mCurrentPhotoPath);
+        return storageDir;
     }
 
     @Override

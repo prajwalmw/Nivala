@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/capturedImageView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:background="#CFC3C3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
