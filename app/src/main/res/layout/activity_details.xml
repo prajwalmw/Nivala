@@ -83,17 +83,17 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout_Quantity">
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/homemade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Homemade" />
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/packaged"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="Packed" />
+                android:text="Packaged" />
         </RadioGroup>
 
         <TextView
@@ -266,7 +266,7 @@
                 android:layout_gravity="center"/>
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/quantity_et"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:ems="10"

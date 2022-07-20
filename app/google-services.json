@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "725959077857",
+    "firebase_url": "https://nivala-48bfd-default-rtdb.firebaseio.com",
+    "project_id": "nivala-48bfd",
+    "storage_bucket": "nivala-48bfd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725959077857:android:fdb2dc69d86a54d05eeca0",
+        "android_client_info": {
+          "package_name": "com.example.nivala"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725959077857-lqomc08o3drgoqffarjdkdn8lsfh1npr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nivala",
+            "certificate_hash": "07ba49fef9681f9890b0ff7b37d43c8c4d01bc9d"
+          }
+        },
+        {
+          "client_id": "725959077857-55o8v6b4ns9ev998f6b8d2tvuoevb3h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNFI0LfYfS1S3mWqjm9kVNg1gBuxHtLYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725959077857-55o8v6b4ns9ev998f6b8d2tvuoevb3h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaActionSound;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,12 +37,19 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.example.nivala.Details;
 import com.example.nivala.databinding.FragmentGiveBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -54,6 +62,9 @@ public class GiveFragment extends Fragment {
     ImageCapture imageCapture = null;
     private Executor executor = Executors.newSingleThreadExecutor();
     private String imageFileName;
+    FirebaseStorage storage;
+    Uri imageUri;
+    String timeStamp = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -149,8 +160,10 @@ public class GiveFragment extends Fragment {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
+                        uploadImageSavedToFirebase();
                         Toast.makeText(getContext(), "Image Saved successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(GiveFragment.this.getActivity(), Details.class);
+                        intent.putExtra("imageUri", imageUri.toString());
                         intent.putExtra("imageFilename", imageFileName);
                         startActivity(intent);
                         Log.v("Image", "Image: " + imageFileName);
@@ -162,6 +175,25 @@ public class GiveFragment extends Fragment {
             public void onError(@NonNull ImageCaptureException error) {
                 error.printStackTrace();
             }
+        });
+    }
+
+    private void uploadImageSavedToFirebase() {
+        storage = FirebaseStorage.getInstance();
+        StorageReference reference = storage.getReference().child("Food").child(timeStamp+"");
+        reference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if(task.isSuccessful()) {
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                        }
+                    });
+                }
+            }
+
         });
     }
 
@@ -224,7 +256,7 @@ public class GiveFragment extends Fragment {
     private File createImageFile() throws IOException {
         // Create an image file name
         String mCurrentPhotoPath = "";
-        String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(new Date());
+        timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(new Date());
         imageFileName = timeStamp + ".jpg";
 
         File storageDir = this.getActivity().getExternalFilesDir("Pictures");  //external sd card
@@ -242,6 +274,7 @@ public class GiveFragment extends Fragment {
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = storageDir.getAbsolutePath();
         Log.v("Image", "Image_File: " + mCurrentPhotoPath);
+        imageUri = Uri.fromFile(storageDir); // get uri for firebase image upload
         return storageDir;
     }
 
