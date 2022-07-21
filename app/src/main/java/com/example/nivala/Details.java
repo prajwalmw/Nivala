@@ -10,6 +10,10 @@ import android.util.Log;
 import com.bumptech.glide.Glide;
 import com.example.nivala.databinding.ActivityDetailsBinding;
 import com.example.nivala.model.GiveDataModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +25,10 @@ public class Details extends AppCompatActivity {
     private File storageDir;
     private GiveDataModel model;
     private Uri imageUri;
+    private FirebaseDatabase database;
+    private FirebaseStorage storage;
+    private String timeStamp;
+    private StorageReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +36,17 @@ public class Details extends AppCompatActivity {
         binding = ActivityDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        database = FirebaseDatabase.getInstance();
         intent = getIntent();
         if (intent != null) {
             imageFileName = intent.getStringExtra("imageFilename");
             imageUri = Uri.parse(intent.getStringExtra("imageUri"));
+            timeStamp = intent.getStringExtra("timeStamp");
+
+            storage = FirebaseStorage.getInstance();
+            reference = storage.getReference().child("Food").child(timeStamp+"");
         }
+
         storageDir = this.getExternalFilesDir("Pictures");  //external sd card
         storageDir = new File(storageDir, imageFileName);
         if (!storageDir.exists())
@@ -42,12 +56,6 @@ public class Details extends AppCompatActivity {
         Log.v("Image", "Image_File_detials: " + storageDir.getAbsolutePath());
 
         binding.capturedImageView.setImageURI(imageUri); // here image will be displayed in the imageview
-/*
-        Glide.with(this)
-                .load(storageDir)
-                .centerCrop()
-                .into(binding.capturedImageView);
-*/
 
         binding.submitBtn.setOnClickListener(v -> {
             model = new GiveDataModel();
@@ -66,8 +74,24 @@ public class Details extends AppCompatActivity {
             model.setPhone(binding.phoneEditText.getText().toString());
             model.setPolicy(binding.checkBox.getText().toString());
 
+            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // do something
+                    imageUri = uri;
+                    model.setImageUri(String.valueOf(imageUri));
+                    Log.v("ImageUri", "uri_downlaod: " + imageUri);
+                    Log.v("ImageUri", "image_dbPush: " + imageUri);
+                    database.getReference().child("Food-Post")
+                            .child(timeStamp)
+                            .push()
+                            .setValue(model);
+                }
+            });
+
             Intent intent = new Intent(Details.this, MainActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 }

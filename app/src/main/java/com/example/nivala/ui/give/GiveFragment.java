@@ -41,6 +41,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -65,6 +66,7 @@ public class GiveFragment extends Fragment {
     FirebaseStorage storage;
     Uri imageUri;
     String timeStamp = "";
+    private FirebaseDatabase database;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -165,6 +167,7 @@ public class GiveFragment extends Fragment {
                         Intent intent = new Intent(GiveFragment.this.getActivity(), Details.class);
                         intent.putExtra("imageUri", imageUri.toString());
                         intent.putExtra("imageFilename", imageFileName);
+                        intent.putExtra("timeStamp", timeStamp);
                         startActivity(intent);
                         Log.v("Image", "Image: " + imageFileName);
                     }
@@ -180,6 +183,7 @@ public class GiveFragment extends Fragment {
 
     private void uploadImageSavedToFirebase() {
         storage = FirebaseStorage.getInstance();
+        database = FirebaseDatabase.getInstance();
         StorageReference reference = storage.getReference().child("Food").child(timeStamp+"");
         reference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -188,7 +192,7 @@ public class GiveFragment extends Fragment {
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
+                            // do something
                         }
                     });
                 }
