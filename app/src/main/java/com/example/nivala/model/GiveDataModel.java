@@ -1,27 +1,26 @@
 package com.example.nivala.model;
 
 public class GiveDataModel {
-    private String foodItem;
-    private String quantity;
-    private String foodType;
     private String expiry;
+    private String foodItem;
+    private String imageUri;
+    private String phone;
     private String pickupAddress;
     private String pickupDate;
     private String pickupTime;
-    private String phone;
-    private String imageUri;
     private String policy;
-
+    private String quantity;
+    private String foodType;
+// TODO: add food type
     public GiveDataModel() {
     }
 
-    public GiveDataModel(String foodItem, String quantity, String foodType, String expiry,
+    public GiveDataModel(String foodItem, String quantity, String expiry,
                          String pickupAddress, String pickupDate, String pickupTime,
-                         String phone, String imageUri, String policy) {
+                         String phone, String imageUri, String policy, String foodType) {
 
         this.foodItem = foodItem;
         this.quantity = quantity;
-        this.foodType = foodType;
         this.expiry = expiry;
         this.pickupAddress = pickupAddress;
         this.pickupDate = pickupDate;
@@ -29,6 +28,7 @@ public class GiveDataModel {
         this.phone = phone;
         this.imageUri = imageUri;
         this.policy = policy;
+        this.foodType = foodType;
     }
 
     public String getFoodItem() {
@@ -47,13 +47,6 @@ public class GiveDataModel {
         this.quantity = quantity;
     }
 
-    public String getFoodType() {
-        return foodType;
-    }
-
-    public void setFoodType(String foodType) {
-        this.foodType = foodType;
-    }
 
     public String getExpiry() {
         return expiry;
@@ -109,5 +102,13 @@ public class GiveDataModel {
 
     public void setPolicy(String policy) {
         this.policy = policy;
+    }
+
+    public String getFoodType() {
+        return foodType;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
     }
 }

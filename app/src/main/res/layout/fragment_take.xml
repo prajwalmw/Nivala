@@ -11,6 +11,7 @@
         android:id="@+id/recyclerview_take"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/take_listitem"/>
+        tools:listitem="@layout/take_listitem"
+        android:layout_marginBottom="60dp"/>
 
 </RelativeLayout>

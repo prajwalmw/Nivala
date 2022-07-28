@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.RadioButton;
 
 import com.bumptech.glide.Glide;
 import com.example.nivala.databinding.ActivityDetailsBinding;
@@ -61,12 +63,12 @@ public class Details extends AppCompatActivity {
             model = new GiveDataModel();
             model.setFoodItem(binding.titleEditText.getText().toString());
             model.setQuantity(binding.quantityEt.getText().toString());
-
-            int position = binding.radioGroup.getCheckedRadioButtonId();
-            if (position == 0)
+            int radioButtonID = binding.radioGroup.getCheckedRadioButtonId();
+            if (radioButtonID == binding.homemade.getId())
                 model.setFoodType("HomeMade");
-            else if (position == 0)
+            else if (radioButtonID == binding.packaged.getId())
                 model.setFoodType("Packaged");
+            Log.e("details", "position: "+ model.getFoodType());
             model.setExpiry(binding.expiryEditText.getText().toString());
             model.setPickupAddress(binding.addressEditText.getText().toString());
             model.setPickupDate(binding.pickupDateEditText.getText().toString());
@@ -84,7 +86,6 @@ public class Details extends AppCompatActivity {
                     Log.v("ImageUri", "image_dbPush: " + imageUri);
                     database.getReference().child("Food-Post")
                             .child(timeStamp)
-                            .push()
                             .setValue(model);
                 }
             });

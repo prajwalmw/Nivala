@@ -1,15 +1,25 @@
 package com.example.nivala.ui.take.adapter;
 
+import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.nivala.R;
 import com.example.nivala.databinding.TakeListitemBinding;
+import com.example.nivala.model.GiveDataModel;
+
+import java.util.List;
 
 /**
 * Created by Prajwal Maruti Waingankar on 29-04-2022, 11:56
@@ -19,10 +29,14 @@ import com.example.nivala.databinding.TakeListitemBinding;
 */
 
 public class TakeAdapter extends RecyclerView.Adapter<TakeAdapter.TakeViewHolder> {
-    TakeListitemBinding binding;
+    private TakeListitemBinding binding;
+    private List<GiveDataModel> model;
+    Context context;
 
-    public TakeAdapter() {
+    public TakeAdapter(FragmentActivity activity, List<GiveDataModel> model) {
         // do something
+        this.model = model;
+        this.context = activity;
     }
 
     @NonNull
@@ -35,19 +49,32 @@ public class TakeAdapter extends RecyclerView.Adapter<TakeAdapter.TakeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TakeViewHolder holder, int position) {
-
+        GiveDataModel giveDataModel = model.get(position);
+        Glide.with(context)
+                .load(giveDataModel.getImageUri())
+                .centerCrop()
+                .into(holder.image);
+        holder.address.setText(giveDataModel.getPickupAddress());
+        holder.expiryDateTime.setText(giveDataModel.getExpiry());
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return model.size();
     }
 
     public class TakeViewHolder extends RecyclerView.ViewHolder {
+        TextView address, expiryDateTime;
+        ImageView image;
+        CardView cardviewPost;
 
         public TakeViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            address = itemView.findViewById(R.id.address);
+            expiryDateTime = itemView.findViewById(R.id.expiryDateTime);
+            image = itemView.findViewById(R.id.image);
+            cardviewPost = itemView.findViewById(R.id.cardviewPost);
         }
     }
 }
