@@ -55,9 +55,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="5dp"
-            android:background="@color/bgcolor_takeItem"
+            android:background="@drawable/cornered_edge_box"
             android:padding="5dp"
+            android:textSize="12sp"
+            android:elevation="2dp"
+            android:fontFamily="@font/roboto"
             android:text="@string/test_date"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/timer_imageview"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,6 +74,7 @@
             tools:layout_editor_absoluteY="5dp"
             android:layout_marginTop="3dp"
             android:padding="7dp"
+            android:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/circular_shape_bg"/>
@@ -80,10 +85,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
-            android:background="@color/bgcolor_takeItem"
+            android:background="@drawable/cornered_edge_box"
+            android:fontFamily="@font/roboto"
             android:padding="5dp"
+            android:elevation="2dp"
             android:text="@string/test_locationName"
-            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
