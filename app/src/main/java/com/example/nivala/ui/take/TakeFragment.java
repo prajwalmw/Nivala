@@ -52,7 +52,8 @@ public class TakeFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         giveDataModels = new ArrayList<>();
-        binding.recyclerviewTake.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        binding.recyclerviewTake.setLayoutManager(new LinearLayoutManager(getActivity(),
+                RecyclerView.VERTICAL, true));
         adapter = new TakeAdapter(getActivity(), giveDataModels);
         binding.recyclerviewTake.setAdapter(adapter);
 
@@ -63,7 +64,6 @@ public class TakeFragment extends Fragment {
                         for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                             GiveDataModel data = postSnapshot.getValue(GiveDataModel.class);
                             giveDataModels.add(data);
-                            Collections.reverse(giveDataModels);
                             Log.v("hel", "hel: " + giveDataModels.get(0).getFoodItem());
                             adapter.notifyDataSetChanged();
                         }
