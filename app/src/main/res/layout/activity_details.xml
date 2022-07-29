@@ -116,12 +116,40 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Select Expiry Period"
-            android:inputType="textPersonName"
+            android:inputType="datetime"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/radioGroup"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/radioGroup"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+<!--        City - Start-->
+        <TextView
+            android:id="@+id/city_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="State/City"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/city_editText"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/city_editText" />
+
+        <EditText
+            android:id="@+id/city_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Enter your State/City"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/expiry_editText"
+            app:layout_constraintStart_toStartOf="@+id/expiry_editText"
+            app:layout_constraintTop_toBottomOf="@+id/expiry_editText" />
+<!--        City - End-->
 
         <TextView
             android:id="@+id/address_textview"
@@ -131,9 +159,9 @@
             android:text="Pickup Address"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/address_editText"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintEnd_toEndOf="@+id/city_textview"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/city_textview"
             app:layout_constraintTop_toTopOf="@+id/address_editText" />
 
         <EditText
@@ -145,9 +173,9 @@
             android:hint="Enter your Address"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/expiry_editText"
-            app:layout_constraintStart_toStartOf="@+id/expiry_editText"
-            app:layout_constraintTop_toBottomOf="@+id/expiry_editText" />
+            app:layout_constraintEnd_toEndOf="@+id/city_editText"
+            app:layout_constraintStart_toStartOf="@+id/city_editText"
+            app:layout_constraintTop_toBottomOf="@+id/city_editText" />
 
         <!--        Pickup Date-->
         <TextView
@@ -170,7 +198,7 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Enter your Pickup Date"
-            android:inputType="textPersonName"
+            android:inputType="date"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/address_editText"
             app:layout_constraintStart_toStartOf="@+id/address_editText"
@@ -198,7 +226,7 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Enter your Pickup Time"
-            android:inputType="textPersonName"
+            android:inputType="time"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/pickupDate_editText"
             app:layout_constraintStart_toStartOf="@+id/pickupDate_editText"
@@ -225,7 +253,7 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Enter your Phone number"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="@+id/pickupTime_editText"
             app:layout_constraintStart_toStartOf="@+id/pickupTime_editText"
@@ -255,12 +283,13 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/button"
+                android:id="@+id/minus"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:text="-"
                 android:textStyle="bold"
                 android:gravity="center"
+                android:elevation="2dp"
                 android:background="@drawable/circular_shape_bg"
                 android:layout_marginEnd="10dp"
                 android:layout_gravity="center"/>
@@ -276,12 +305,13 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/button2"
+                android:id="@+id/add"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:text="+"
                 android:textStyle="bold"
                 android:gravity="center"
+                android:elevation="2dp"
                 android:background="@drawable/circular_shape_bg"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center"/>

@@ -70,6 +70,7 @@ public class Details extends AppCompatActivity {
                 model.setFoodType("Packaged");
             Log.e("details", "position: "+ model.getFoodType());
             model.setExpiry(binding.expiryEditText.getText().toString());
+            model.setCity(binding.cityEditText.getText().toString());
             model.setPickupAddress(binding.addressEditText.getText().toString());
             model.setPickupDate(binding.pickupDateEditText.getText().toString());
             model.setPickupTime(binding.pickupTimeEditText.getText().toString());

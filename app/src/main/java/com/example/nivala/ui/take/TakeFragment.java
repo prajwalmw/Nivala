@@ -53,7 +53,7 @@ public class TakeFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         giveDataModels = new ArrayList<>();
         binding.recyclerviewTake.setLayoutManager(new LinearLayoutManager(getActivity(),
-                RecyclerView.VERTICAL, true));
+                RecyclerView.VERTICAL, false));
         adapter = new TakeAdapter(getActivity(), giveDataModels);
         binding.recyclerviewTake.setAdapter(adapter);
 

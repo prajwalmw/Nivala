@@ -5,6 +5,7 @@ public class GiveDataModel {
     private String foodItem;
     private String imageUri;
     private String phone;
+    private String city;
     private String pickupAddress;
     private String pickupDate;
     private String pickupTime;
@@ -15,13 +16,14 @@ public class GiveDataModel {
     public GiveDataModel() {
     }
 
-    public GiveDataModel(String foodItem, String quantity, String expiry,
+    public GiveDataModel(String foodItem, String quantity, String expiry, String city,
                          String pickupAddress, String pickupDate, String pickupTime,
                          String phone, String imageUri, String policy, String foodType) {
 
         this.foodItem = foodItem;
         this.quantity = quantity;
         this.expiry = expiry;
+        this.city = city;
         this.pickupAddress = pickupAddress;
         this.pickupDate = pickupDate;
         this.pickupTime = pickupTime;
@@ -54,6 +56,14 @@ public class GiveDataModel {
 
     public void setExpiry(String expiry) {
         this.expiry = expiry;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getPickupAddress() {

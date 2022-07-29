@@ -63,7 +63,7 @@ public class TakeAdapter extends RecyclerView.Adapter<TakeAdapter.TakeViewHolder
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .into(holder.image);
-        holder.address.setText(giveDataModel.getPickupAddress());
+        holder.address.setText(giveDataModel.getCity());
         holder.expiryDateTime.setText(giveDataModel.getExpiry());
     }
 
