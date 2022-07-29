@@ -10,8 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="scrollview"
         android:layout_gravity="center_horizontal"
+        android:contentDescription="scrollview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,30 +21,32 @@
             android:id="@+id/title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Food Item(s)"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/title_editText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title_editText" />
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/title_editText"
+            app:layout_constraintVertical_bias="0.538" />
+
+        <!--Food Type Title End-->
+
+        <!--        Quantity Start -->
+        <!--        Quantity End-->
 
         <EditText
             android:id="@+id/title_editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
             android:ems="10"
             android:hint="Enter your title"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/title_textview"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!--Food Type Title End-->
-
-        <!--        Quantity Start -->
-        <!--        Quantity End-->
+            android:textColorHint="#757575"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            tools:layout_editor_absoluteX="175dp" />
 
         <TextView
             android:id="@+id/quantity_textview"
@@ -78,8 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout_Quantity"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout_Quantity"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout_Quantity">
 
             <RadioButton
@@ -123,7 +124,7 @@
             app:layout_constraintStart_toStartOf="@+id/radioGroup"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-<!--        City - Start-->
+        <!--        City - Start-->
         <TextView
             android:id="@+id/city_textview"
             android:layout_width="wrap_content"
@@ -149,7 +150,7 @@
             app:layout_constraintEnd_toEndOf="@+id/expiry_editText"
             app:layout_constraintStart_toStartOf="@+id/expiry_editText"
             app:layout_constraintTop_toBottomOf="@+id/expiry_editText" />
-<!--        City - End-->
+        <!--        City - End-->
 
         <TextView
             android:id="@+id/address_textview"
@@ -276,45 +277,45 @@
             android:id="@+id/linearLayout_Quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/title_editText"
             app:layout_constraintEnd_toEndOf="@+id/title_editText"
-            app:layout_constraintTop_toBottomOf="@+id/title_editText"
-            android:layout_marginTop="20dp">
+            app:layout_constraintStart_toStartOf="@+id/title_editText"
+            app:layout_constraintTop_toBottomOf="@+id/title_editText">
 
             <TextView
                 android:id="@+id/minus"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="-"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:elevation="2dp"
-                android:background="@drawable/circular_shape_bg"
+                android:layout_gravity="center"
                 android:layout_marginEnd="10dp"
-                android:layout_gravity="center"/>
+                android:background="@drawable/circular_shape_bg"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:text="-"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/quantity_et"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:ems="10"
-                android:inputType="number"
-                android:text="20"
                 android:gravity="center"
-                android:layout_gravity="center"/>
+                android:inputType="number"
+                android:text="20" />
 
             <TextView
                 android:id="@+id/add"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="+"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:elevation="2dp"
-                android:background="@drawable/circular_shape_bg"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:layout_gravity="center"/>
+                android:background="@drawable/circular_shape_bg"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:text="+"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <TextView
@@ -354,6 +355,20 @@
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/capturedImageView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="10dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
