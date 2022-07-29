@@ -57,4 +57,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage'
 
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
 }
