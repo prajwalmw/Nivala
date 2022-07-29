@@ -29,7 +29,7 @@
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_settings_24.xml" value="0.123" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_time_24.xml" value="0.194" />
         <entry key="..\:/Nivala/app/src/main/res/layout/activity_checkout.xml" value="0.20416666666666666" />
-        <entry key="..\:/Nivala/app/src/main/res/layout/activity_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Nivala/app/src/main/res/layout/activity_details.xml" value="0.25" />
         <entry key="..\:/Nivala/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Nivala/app/src/main/res/layout/activity_payment.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/buy_with_googlepay_button.xml" value="0.20416666666666666" />
@@ -39,6 +39,7 @@
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_give.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_notifications.xml" value="0.20416666666666666" />
+        <entry key="..\:/Nivala/app/src/main/res/layout/fragment_selfiepoint.xml" value="0.25" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_take.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/take_listitem.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />

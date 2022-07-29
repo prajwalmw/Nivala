@@ -5,273 +5,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".Details">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="scrollview"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginHorizontal="20dp">
 
-        <TextView
-            android:id="@+id/title_textview"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Food Item(s)"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/title_editText"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/title_editText"
-            app:layout_constraintVertical_bias="0.538" />
+            android:hint="Food Item(s)"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <!--Food Type Title End-->
-
-        <!--        Quantity Start -->
-        <!--        Quantity End-->
-
-        <EditText
-            android:id="@+id/title_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:ems="10"
-            android:hint="Enter your title"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textColorHint="#757575"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline3"
-            tools:layout_editor_absoluteX="175dp" />
-
-        <TextView
-            android:id="@+id/quantity_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Quantity"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout_Quantity"
-            app:layout_constraintEnd_toEndOf="@+id/title_textview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/title_textview"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout_Quantity" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Food Type"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
-            app:layout_constraintEnd_toEndOf="@+id/quantity_textview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/quantity_textview"
-            app:layout_constraintTop_toTopOf="@+id/radioGroup" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout_Quantity">
-
-            <RadioButton
-                android:id="@+id/homemade"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/title_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Homemade" />
-
-            <RadioButton
-                android:id="@+id/packaged"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="Packaged" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Expiry"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/expiry_editText"
-            app:layout_constraintEnd_toEndOf="@+id/textView4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/expiry_editText" />
-
-        <EditText
-            android:id="@+id/expiry_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Select Expiry Period"
-            android:inputType="datetime"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/radioGroup"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/radioGroup"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-        <!--        City - Start-->
-        <TextView
-            android:id="@+id/city_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="State/City"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/city_editText"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="@+id/city_editText" />
-
-        <EditText
-            android:id="@+id/city_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Enter your State/City"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/expiry_editText"
-            app:layout_constraintStart_toStartOf="@+id/expiry_editText"
-            app:layout_constraintTop_toBottomOf="@+id/expiry_editText" />
-        <!--        City - End-->
-
-        <TextView
-            android:id="@+id/address_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Pickup Address"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/address_editText"
-            app:layout_constraintEnd_toEndOf="@+id/city_textview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/city_textview"
-            app:layout_constraintTop_toTopOf="@+id/address_editText" />
-
-        <EditText
-            android:id="@+id/address_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Enter your Address"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/city_editText"
-            app:layout_constraintStart_toStartOf="@+id/city_editText"
-            app:layout_constraintTop_toBottomOf="@+id/city_editText" />
-
-        <!--        Pickup Date-->
-        <TextView
-            android:id="@+id/pickupDate_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Pickup Date"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/pickupDate_editText"
-            app:layout_constraintEnd_toEndOf="@+id/address_textview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/address_textview"
-            app:layout_constraintTop_toTopOf="@+id/pickupDate_editText" />
-
-        <EditText
-            android:id="@+id/pickupDate_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Enter your Pickup Date"
-            android:inputType="date"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/address_editText"
-            app:layout_constraintStart_toStartOf="@+id/address_editText"
-            app:layout_constraintTop_toBottomOf="@+id/address_editText" />
-        <!--        Pickup Date End-->
-
-        <!-- Pickup Time -->
-        <TextView
-            android:id="@+id/pickupTime_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Pickup Time"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/pickupTime_editText"
-            app:layout_constraintEnd_toEndOf="@+id/pickupDate_textview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/pickupDate_textview"
-            app:layout_constraintTop_toTopOf="@+id/pickupTime_editText" />
-
-        <EditText
-            android:id="@+id/pickupTime_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Enter your Pickup Time"
-            android:inputType="time"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/pickupDate_editText"
-            app:layout_constraintStart_toStartOf="@+id/pickupDate_editText"
-            app:layout_constraintTop_toBottomOf="@+id/pickupDate_editText" />
-        <!--        Pickup Time End-->
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Phone"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/phone_editText"
-            app:layout_constraintEnd_toEndOf="@+id/pickupTime_textview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/pickupTime_textview"
-            app:layout_constraintTop_toTopOf="@+id/phone_editText" />
-
-        <EditText
-            android:id="@+id/phone_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Enter your Phone number"
-            android:inputType="number"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/pickupTime_editText"
-            app:layout_constraintStart_toStartOf="@+id/pickupTime_editText"
-            app:layout_constraintTop_toBottomOf="@+id/pickupTime_editText" />
-
-        <Button
-            android:id="@+id/submitBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="Submit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout_Quantity"
@@ -279,9 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/title_editText"
-            app:layout_constraintStart_toStartOf="@+id/title_editText"
-            app:layout_constraintTop_toBottomOf="@+id/title_editText">
+            android:layout_below="@+id/textlayout_title">
 
             <TextView
                 android:id="@+id/minus"
@@ -318,57 +71,204 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/linearLayout_Quantity">
+
+            <RadioButton
+                android:id="@+id/homemade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Homemade" />
+
+            <RadioButton
+                android:id="@+id/packaged"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Packaged" />
+        </RadioGroup>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_expiry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Expiry Period"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_below="@+id/radioGroup">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expiry_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="datetime" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_state_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/textlayout_expiry">
+
+            <!-- State -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_state"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="State"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="3dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/state_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--        city-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_city"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="City"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="3dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/city_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!--  Pickup Address  -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_below="@+id/linear_state_city">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/address_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--  Pickup Date  -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pickup Date"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_below="@+id/textlayout_address">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pickupDate_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--  Pickup Time  -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pickup Time"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_below="@+id/textlayout_date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pickupTime_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--  Phone number  -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_phone_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_below="@+id/textlayout_time">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/photos_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/textlayout_phone_no"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Photos"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView7"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/phone_editText" />
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/capturedImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_below="@+id/photos_textview"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/photos_textview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/photos_textview"
-            app:layout_constraintTop_toBottomOf="@+id/photos_textview"
             app:srcCompat="@drawable/food" />
 
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="30dp"
+            android:layout_below="@+id/capturedImageView"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/roboto_light"
+            android:gravity="start"
+            android:paddingStart="5dp"
             android:text="I assure that the food quality and hygiene is maintained"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/capturedImageView" />
+            android:textSize="14sp" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
+        <Button
+            android:id="@+id/submitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp" />
+            android:layout_below="@+id/checkBox"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="Submit" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="10dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </ScrollView>
