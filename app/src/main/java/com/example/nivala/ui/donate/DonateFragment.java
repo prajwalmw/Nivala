@@ -56,12 +56,12 @@ FragmentDonateBinding binding;
                 new Uri.Builder()
                         .scheme("upi")
                         .authority("pay")
-                        .appendQueryParameter("pa", "your-merchant-vpa@xxx")  // virtual ID ** Need a merchant account
+                        .appendQueryParameter("pa", "7304154312@okbizaxis")  // virtual ID ** Need a merchant account
                         .appendQueryParameter("pn", "nivala" /*"your-merchant-name"*/)          // name
-                        .appendQueryParameter("mc", "")          // optional
-                        .appendQueryParameter("tr", "862346576")     // optional -- can be random
-                       // .appendQueryParameter("tn",  "your-transaction-note")       // any note about payment
-                        .appendQueryParameter("am", "1" /*"your-order-amount"*/)           // amount
+                        .appendQueryParameter("mc", "BCR2DN4T4DNLPADO")          // optional // BCR2DN4T4DNLPADO // BCR2DN4TSCP6XIR2
+                        .appendQueryParameter("tr", "134729489")     // optional -- can be random
+                        .appendQueryParameter("tn",  "Thank you for the initiative")       // any note about payment
+                        .appendQueryParameter("am", "1.0" /*"your-order-amount"*/)           // amount
                         .appendQueryParameter("cu", "INR").build();                // currency
 
         // Only for Google Pay...

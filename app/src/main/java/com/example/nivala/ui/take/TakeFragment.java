@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nivala.databinding.FragmentTakeBinding;
 import com.example.nivala.model.GiveDataModel;
 import com.example.nivala.ui.take.adapter.TakeAdapter;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,9 +49,6 @@ public class TakeFragment extends Fragment {
         binding = FragmentTakeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-       // final TextView textView = binding.textHome;
-        //  homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         database = FirebaseDatabase.getInstance();
         giveDataModels = new ArrayList<>();
         binding.recyclerviewTake.setLayoutManager(new LinearLayoutManager(getActivity(),
@@ -58,22 +57,35 @@ public class TakeFragment extends Fragment {
         binding.recyclerviewTake.setAdapter(adapter);
 
         database.getReference().child("Food-Post")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                            GiveDataModel data = postSnapshot.getValue(GiveDataModel.class);
-                            giveDataModels.add(data);
-                            Log.v("hel", "hel: " + giveDataModels.get(0).getFoodItem());
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
+                        .addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                    GiveDataModel data = snapshot.getValue(GiveDataModel.class);
+                                    giveDataModels.add(0, data);
+                                    Log.v("hel", "hel: " + giveDataModels.get(0).getFoodItem());
+                                    adapter.notifyDataSetChanged();
+                            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                    }
-                });
+                            }
+
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
 
         return root;
     }
@@ -87,6 +99,6 @@ public class TakeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+       // adapter.notifyDataSetChanged();
     }
 }

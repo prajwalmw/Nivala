@@ -33,4 +33,7 @@
             android:resource="@array/preloaded_fonts" />
     </application>
 
+    <queries>
+        <package android:name="com.google.android.apps.nbu.paisa.user" />
+    </queries>
 </manifest>
