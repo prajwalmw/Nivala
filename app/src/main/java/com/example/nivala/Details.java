@@ -30,7 +30,7 @@ public class Details extends AppCompatActivity {
     private Intent intent;
     private String imageFileName = "";
     private File storageDir;
-    private GiveDataModel model;
+    private GiveDataModel model = new GiveDataModel();;
     private Uri imageUri;
     private FirebaseDatabase database;
     private FirebaseStorage storage;
@@ -58,6 +58,16 @@ public class Details extends AppCompatActivity {
         storageDir = new File(storageDir, imageFileName);
         if (!storageDir.exists())
             storageDir.mkdirs();
+
+        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // do something
+                imageUri = uri;
+                Log.v("ImageUri", "uri_downlaod: " + imageUri);
+                Log.v("ImageUri", "image_dbPush: " + imageUri);
+            }
+        });
 
         Log.v("Image", "Image_details: " + imageFileName);
         Log.v("Image", "Image_File_detials: " + storageDir.getAbsolutePath());
@@ -100,7 +110,7 @@ public class Details extends AppCompatActivity {
         });
 
         binding.submitBtn.setOnClickListener(v -> {
-            model = new GiveDataModel();
+            model.setImageUri(String.valueOf(imageUri));
             model.setFoodItem(binding.titleEditText.getText().toString());
             model.setQuantity(binding.quantityEt.getText().toString());
             int radioButtonID = binding.radioGroup.getCheckedRadioButtonId();
@@ -118,19 +128,9 @@ public class Details extends AppCompatActivity {
             model.setPhone(binding.phoneEditText.getText().toString());
             model.setPolicy(binding.checkBox.getText().toString());
 
-            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    // do something
-                    imageUri = uri;
-                    model.setImageUri(String.valueOf(imageUri));
-                    Log.v("ImageUri", "uri_downlaod: " + imageUri);
-                    Log.v("ImageUri", "image_dbPush: " + imageUri);
-                    database.getReference().child("Food-Post")
-                            .child(timeStamp)
-                            .setValue(model);
-                }
-            });
+            database.getReference().child("Food-Post")
+                    .child(timeStamp)
+                    .setValue(model);
 
             Intent intent = new Intent(Details.this, MainActivity.class);
             startActivity(intent);
