@@ -10,6 +10,7 @@
         <entry key="..\:/Nivala/app/src/main/res/drawable/cornered_edge_box.xml" value="0.141" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/donate_with_googlepay_button_content.xml" value="0.1445" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/googlepay_button_background.xml" value="0.2115" />
+        <entry key="..\:/Nivala/app/src/main/res/drawable/googlepay_button_content.xml" value="0.1685" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/googlepay_button_overlay.xml" value="0.1445" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_baseline_camera_24.xml" value="0.1675" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.1675" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_chat_24.xml" value="0.183" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_donate_24.xml" value="0.183" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_give_24.xml" value="0.183" />
+        <entry key="..\:/Nivala/app/src/main/res/drawable/ic_google_pay_mark_800.xml" value="0.193" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.123" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_language_24.xml" value="0.123" />
         <entry key="..\:/Nivala/app/src/main/res/drawable/ic_location_on_24.xml" value="0.123" />
@@ -33,6 +35,7 @@
         <entry key="..\:/Nivala/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Nivala/app/src/main/res/layout/activity_payment.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/buy_with_googlepay_button.xml" value="0.20416666666666666" />
+        <entry key="..\:/Nivala/app/src/main/res/layout/donate_image_listitem.xml" value="0.33" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_chat.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_dashboard.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_donate.xml" value="0.20416666666666666" />

@@ -78,7 +78,8 @@ public class GiveFragment extends Fragment {
     String timeStamp = "";
     private FirebaseDatabase database;
     private InterstitialAd mInterstitialAd;
-    private static final String AD_UNIT_ID = "ca-app-pub-6656140211699925/6602568537";
+  //  private static final String AD_UNIT_ID = "ca-app-pub-6656140211699925/6602568537"; // live unit
+    public static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"; // test
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class GiveFragment extends Fragment {
 
         binding = FragmentGiveBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        binding.captureBtn.setVisibility(View.GONE);
         loadAd();
 
         if (checkPermission()) {
@@ -276,7 +278,7 @@ public class GiveFragment extends Fragment {
         timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss").format(new Date());
         imageFileName = timeStamp + ".jpg";
 
-        File storageDir = this.getActivity().getExternalFilesDir("Pictures");  //external sd card
+        File storageDir = this.getActivity().getExternalFilesDir("Pictures");  // internal storage
         storageDir = new File(storageDir, imageFileName);
 
         if (!storageDir.exists()) {
@@ -302,6 +304,7 @@ public class GiveFragment extends Fragment {
     }
 
     public void loadAd() {
+        Toast.makeText(GiveFragment.this.getActivity(), "Ad is about to play...", Toast.LENGTH_SHORT).show();
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(
                 this.getActivity(),
@@ -315,7 +318,6 @@ public class GiveFragment extends Fragment {
                         mInterstitialAd = interstitialAd;
                         mInterstitialAd.show(GiveFragment.this.getActivity());
                         Log.d("GAT", "onAdLoaded");
-                        Toast.makeText(GiveFragment.this.getActivity(), "Ad is about to play...", Toast.LENGTH_SHORT).show();
                         interstitialAd.setFullScreenContentCallback(
                                 new FullScreenContentCallback() {
                                     @Override
@@ -323,6 +325,7 @@ public class GiveFragment extends Fragment {
                                         // Called when fullscreen content is dismissed.
                                         // Make sure to set your reference to null so you don't
                                         // show it a second time.
+                                        binding.captureBtn.setVisibility(View.VISIBLE);
                                         mInterstitialAd = null;
                                         Log.d("TAG", "The ad was dismissed.");
                                     }
@@ -334,12 +337,14 @@ public class GiveFragment extends Fragment {
                                         // show it a second time.
                                         mInterstitialAd = null;
                                         Log.d("TAG", "The ad failed to show.");
+                                     //   binding.captureBtn.setVisibility(View.VISIBLE);
                                     }
 
                                     @Override
                                     public void onAdShowedFullScreenContent() {
                                         // Called when fullscreen content is shown.
                                         Log.d("TAG", "The ad was shown.");
+                                     //   binding.captureBtn.setVisibility(View.VISIBLE);
                                     }
                                 });
                     }
@@ -349,6 +354,7 @@ public class GiveFragment extends Fragment {
                         // Handle the error
                         Log.d("GAT", loadAdError.getMessage());
                         mInterstitialAd = null;
+                        binding.captureBtn.setVisibility(View.VISIBLE);
 
                         String error =
                                 String.format(

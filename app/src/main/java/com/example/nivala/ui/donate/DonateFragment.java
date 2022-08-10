@@ -20,8 +20,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.nivala.databinding.FragmentDonateBinding;
 import com.example.nivala.databinding.FragmentGiveBinding;
+import com.example.nivala.ui.give.GiveFragment;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 
@@ -38,7 +41,8 @@ public class DonateFragment extends Fragment {
 FragmentDonateBinding binding;
     final int UPI_PAYMENT = 0;
     private RewardedAd rewardedAd;
-    static final String AD_UNIT_ID = "ca-app-pub-6656140211699925/5848724218";
+   // private static final String AD_UNIT_ID = "ca-app-pub-6656140211699925/5848724218"; // live
+    private static final String AD_UNIT_ID = "ca-app-pub-6656140211699925/5848724218"; // test
     boolean isLoading;
 
     @Nullable
@@ -47,9 +51,8 @@ FragmentDonateBinding binding;
         binding = FragmentDonateBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        loadRewardedAd();
-     //   binding.gpay.setOnClickListener(v -> payUsingUpi());
-        binding.gpay.setOnClickListener(v -> loadRewardedAd());
+        binding.gpayBtn.setOnClickListener(v -> payUsingUpi());
+        binding.adsBtn.setOnClickListener(v -> loadRewardedAd());
         return root;
     }
 
@@ -187,6 +190,7 @@ FragmentDonateBinding binding;
     private void loadRewardedAd() {
         if (rewardedAd == null) {
             isLoading = true;
+            Toast.makeText(getContext(), "Ad is about to play...", Toast.LENGTH_SHORT).show();
             AdRequest adRequest = new AdRequest.Builder().build();
             RewardedAd.load(
                     this.getContext(),
@@ -199,15 +203,21 @@ FragmentDonateBinding binding;
                             Log.d("GAT", loadAdError.getMessage());
                             rewardedAd = null;
                             DonateFragment.this.isLoading = false;
-                            Toast.makeText(getContext(), "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getContext(), "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
                             DonateFragment.this.rewardedAd = rewardedAd;
+                            rewardedAd.show(DonateFragment.this.getActivity(), new OnUserEarnedRewardListener() {
+                                @Override
+                                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+
+                                }
+                            });
                             Log.d("GAT", "onAdLoaded");
                             DonateFragment.this.isLoading = false;
-                            Toast.makeText(getContext(), "onAdLoaded", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getContext(), "onAdLoaded", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
