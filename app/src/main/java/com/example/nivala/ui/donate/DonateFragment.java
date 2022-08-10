@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.nivala.adapter.DonateImageAdapter;
 import com.example.nivala.databinding.FragmentDonateBinding;
 import com.example.nivala.databinding.FragmentGiveBinding;
 import com.example.nivala.ui.give.GiveFragment;
@@ -42,8 +43,9 @@ FragmentDonateBinding binding;
     final int UPI_PAYMENT = 0;
     private RewardedAd rewardedAd;
    // private static final String AD_UNIT_ID = "ca-app-pub-6656140211699925/5848724218"; // live
-    private static final String AD_UNIT_ID = "ca-app-pub-6656140211699925/5848724218"; // test
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917"; // test
     boolean isLoading;
+    private DonateImageAdapter adapter;
 
     @Nullable
     @Override
@@ -53,6 +55,9 @@ FragmentDonateBinding binding;
 
         binding.gpayBtn.setOnClickListener(v -> payUsingUpi());
         binding.adsBtn.setOnClickListener(v -> loadRewardedAd());
+
+        adapter = new DonateImageAdapter();
+        binding.donateRv.setAdapter(adapter);
         return root;
     }
 

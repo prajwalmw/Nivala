@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Hi Prajwal! Thanks for reaching out to this section"
+        android:text="Hi Prajwal! Thanks for reaching out to this section."
         android:textSize="20sp" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/hi_textview"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="It takes a big heart to share as your one nivala can save millions of lives..." />
 
@@ -33,6 +33,7 @@
         android:layout_marginVertical="10dp"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
+        android:fadeScrollbars="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/donate_image_listitem" />
 
