@@ -1,5 +1,6 @@
 package com.example.nivala;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,10 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.nivala.databinding.ActivityDetailsBinding;
 import com.example.nivala.model.GiveDataModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -51,7 +56,7 @@ public class Details extends AppCompatActivity {
             timeStamp = intent.getStringExtra("timeStamp");
 
             storage = FirebaseStorage.getInstance();
-            reference = storage.getReference().child("Food").child(timeStamp+"");
+            reference = storage.getReference().child("Food").child(timeStamp);
         }
 
         storageDir = this.getExternalFilesDir("Pictures");  //external sd card
@@ -59,15 +64,6 @@ public class Details extends AppCompatActivity {
         if (!storageDir.exists())
             storageDir.mkdirs();
 
-        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // do something
-                imageUri = uri;
-                Log.v("ImageUri", "uri_downlaod: " + imageUri);
-                Log.v("ImageUri", "image_dbPush: " + imageUri);
-            }
-        });
 
         Log.v("Image", "Image_details: " + imageFileName);
         Log.v("Image", "Image_File_detials: " + storageDir.getAbsolutePath());
@@ -110,27 +106,52 @@ public class Details extends AppCompatActivity {
         });
 
         binding.submitBtn.setOnClickListener(v -> {
-            model.setImageUri(String.valueOf(imageUri));
-            model.setFoodItem(binding.titleEditText.getText().toString());
-            model.setQuantity(binding.quantityEt.getText().toString());
-            int radioButtonID = binding.radioGroup.getCheckedRadioButtonId();
-            if (radioButtonID == binding.homemade.getId())
-                model.setFoodType("HomeMade");
-            else if (radioButtonID == binding.packaged.getId())
-                model.setFoodType("Packaged");
-            Log.e("details", "position: "+ model.getFoodType());
-            model.setExpiry(binding.expiryEditText.getText().toString());
-            model.setState(binding.stateEditText.getText().toString());
-            model.setCity(binding.cityEditText.getText().toString());
-            model.setPickupAddress(binding.addressEditText.getText().toString());
-            model.setPickupDate(binding.pickupDateEditText.getText().toString());
-            model.setPickupTime(binding.pickupTimeEditText.getText().toString());
-            model.setPhone(binding.phoneEditText.getText().toString());
-            model.setPolicy(binding.checkBox.getText().toString());
+            if(!reference.getActiveUploadTasks().isEmpty()) {
+                Toast.makeText(this, "Image Upload is in progress...", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else {
+              //  Toast.makeText(this, "Upload complete", Toast.LENGTH_SHORT).show();
+            }
 
-            database.getReference().child("Food-Post")
-                    .child(timeStamp)
-                    .setValue(model);
+            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // do something
+                    imageUri = uri;
+                    Log.v("reference", "uri_downlaod: " + String.valueOf(imageUri));
+
+                    model.setImageUri(String.valueOf(imageUri));
+                    Log.v("reference", "uri_: " + String.valueOf(imageUri));
+                    model.setFoodItem(binding.titleEditText.getText().toString());
+                    model.setQuantity(binding.quantityEt.getText().toString());
+                    int radioButtonID = binding.radioGroup.getCheckedRadioButtonId();
+                    if (radioButtonID == binding.homemade.getId())
+                        model.setFoodType("HomeMade");
+                    else if (radioButtonID == binding.packaged.getId())
+                        model.setFoodType("Packaged");
+                    Log.e("details", "position: "+ model.getFoodType());
+                    model.setExpiry(binding.expiryEditText.getText().toString());
+                    model.setState(binding.stateEditText.getText().toString());
+                    model.setCity(binding.cityEditText.getText().toString());
+                    model.setPickupAddress(binding.addressEditText.getText().toString());
+                    model.setPickupDate(binding.pickupDateEditText.getText().toString());
+                    model.setPickupTime(binding.pickupTimeEditText.getText().toString());
+                    model.setPhone(binding.phoneEditText.getText().toString());
+                    model.setPolicy(binding.checkBox.getText().toString());
+
+                    database.getReference().child("Food-Post")
+                            .child(timeStamp)
+                            .setValue(model);
+                }
+            });
+
+            reference.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.v("reference", "error: " + e.getMessage());
+                }
+            });
 
             Intent intent = new Intent(Details.this, MainActivity.class);
             startActivity(intent);

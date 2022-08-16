@@ -30,11 +30,12 @@ public class ProfileOTP_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProfileOtpLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        mauth = FirebaseAuth.getInstance();
 
+        // OTP Login support is added.
+        mauth = FirebaseAuth.getInstance();
         // Checks if user is already logged in or not.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (user == null) { // TODO: user != null
             startActivity(new Intent(ProfileOTP_Login.this, MainActivity.class));
         }
 

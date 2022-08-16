@@ -88,8 +88,8 @@ public class GiveFragment extends Fragment {
 
         binding = FragmentGiveBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        binding.captureBtn.setVisibility(View.GONE);
-        loadAd();
+      //  binding.captureBtn.setVisibility(View.GONE); // TODO: uncomment
+     //   loadAd(); // TODO: uncomment
 
         if (checkPermission()) {
             startCamera();
@@ -199,7 +199,7 @@ public class GiveFragment extends Fragment {
     private void uploadImageSavedToFirebase() {
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
-        StorageReference reference = storage.getReference().child("Food").child(timeStamp+"");
+        StorageReference reference = storage.getReference().child("Food").child(timeStamp);
         reference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -208,6 +208,7 @@ public class GiveFragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             // do something
+                            Toast.makeText(GiveFragment.this.getActivity(), "Image uploaded success", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

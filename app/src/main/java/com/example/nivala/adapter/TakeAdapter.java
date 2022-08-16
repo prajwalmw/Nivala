@@ -1,6 +1,7 @@
 package com.example.nivala.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class TakeAdapter extends RecyclerView.Adapter<TakeAdapter.TakeViewHolder
     @Override
     public void onBindViewHolder(@NonNull TakeViewHolder holder, int position) {
         GiveDataModel giveDataModel = model.get(position);
+        Log.v("uri", "image_uri: " + giveDataModel.getImageUri());
         Glide.with(context)
                 .load(giveDataModel.getImageUri())
                 .placeholder(R.drawable.blur_image)
