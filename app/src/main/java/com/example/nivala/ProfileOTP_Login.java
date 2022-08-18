@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.nivala.databinding.ActivityProfileOtpLoginBinding;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -31,8 +34,24 @@ public class ProfileOTP_Login extends AppCompatActivity {
         binding = ActivityProfileOtpLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Ads initialize only once.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
         // OTP Login support is added.
         mauth = FirebaseAuth.getInstance();
+
+        // Checks if user is already logged in or not.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) { // TODO: user != null
+            startActivity(new Intent(ProfileOTP_Login.this, MainActivity.class));
+        }
+        else {
+          //  startActivity(new Intent(ProfileOTP_Login.this, UserSetupScreen.class));
+        }
 
         binding.sendOtpBtn.setOnClickListener(v -> {
             String mobileString = binding.mobileNoBox.getText().toString().trim();
@@ -119,8 +138,7 @@ public class ProfileOTP_Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     // get id here and send that to main activity.
-                    Intent intent = new Intent(ProfileOTP_Login.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Intent intent = new Intent(ProfileOTP_Login.this, UserSetupScreen.class);
                     startActivity(intent);
                 }
                 else {

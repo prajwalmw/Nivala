@@ -51,6 +51,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -88,8 +89,8 @@ public class GiveFragment extends Fragment {
 
         binding = FragmentGiveBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-      //  binding.captureBtn.setVisibility(View.GONE); // TODO: uncomment
-     //   loadAd(); // TODO: uncomment
+        binding.captureBtn.setVisibility(View.GONE); // TODO: uncomment
+        loadAd(); // TODO: uncomment
 
         if (checkPermission()) {
             startCamera();
@@ -199,7 +200,10 @@ public class GiveFragment extends Fragment {
     private void uploadImageSavedToFirebase() {
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
-        StorageReference reference = storage.getReference().child("Food").child(timeStamp);
+        StorageReference reference = storage.getReference()
+                .child("Food")
+              //  .child(FirebaseAuth.getInstance().getUid())
+                .child(timeStamp);
         reference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {

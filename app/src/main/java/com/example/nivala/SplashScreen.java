@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
                 //Do something after 1 sec.
                 // Checks if user is already logged in or not.
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user == null) { // TODO: user != null
+                if (user != null) { // TODO: user != null
                     startActivity(new Intent(SplashScreen.this, MainActivity.class));
                 }
                 else {

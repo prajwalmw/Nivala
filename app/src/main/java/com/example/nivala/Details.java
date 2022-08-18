@@ -22,6 +22,7 @@ import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -56,7 +57,10 @@ public class Details extends AppCompatActivity {
             timeStamp = intent.getStringExtra("timeStamp");
 
             storage = FirebaseStorage.getInstance();
-            reference = storage.getReference().child("Food").child(timeStamp);
+            reference = storage.getReference()
+                    .child("Food")
+                  //  .child(FirebaseAuth.getInstance().getUid())
+                    .child(timeStamp);
         }
 
         storageDir = this.getExternalFilesDir("Pictures");  //external sd card
@@ -140,7 +144,9 @@ public class Details extends AppCompatActivity {
                     model.setPhone(binding.phoneEditText.getText().toString());
                     model.setPolicy(binding.checkBox.getText().toString());
 
-                    database.getReference().child("Food-Post")
+                    database.getReference()
+                            .child("Food-Post")
+                          //  .child(FirebaseAuth.getInstance().getUid())
                             .child(timeStamp)
                             .setValue(model);
                 }

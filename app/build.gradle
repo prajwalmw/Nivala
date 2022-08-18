@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.nivala"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -31,6 +31,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-config:21.1.1'
+    implementation 'com.google.firebase:firebase-messaging:23.0.7'
     def camerax_version = "1.1.0-beta01"
     implementation "androidx.camera:camera-core:${camerax_version}"
     implementation "androidx.camera:camera-camera2:${camerax_version}"
@@ -62,4 +64,11 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:21.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0' // profile setup view
     implementation 'androidx.browser:browser:1.2.0'
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2' // otp view
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3' // older version doesnt work for androidx
+    implementation 'com.devlomi:circularstatusview:1.0.1' // status view
+    implementation 'com.github.OMARIHAMZA:StoryView:1.0.2-alpha' // story view layout
+    implementation "com.github.pgreze:android-reactions:1.3" // chat reactions
+    implementation ('org.jitsi.react:jitsi-meet-sdk:6.0.0') { transitive = true } // free server for chat feature
+    implementation 'com.android.volley:volley:1.2.0' // image show similar to Glide
 }

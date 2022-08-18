@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nivala.databinding.FragmentTakeBinding;
 import com.example.nivala.model.GiveDataModel;
 import com.example.nivala.adapter.TakeAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,8 +46,10 @@ public class TakeFragment extends Fragment {
         adapter = new TakeAdapter(getActivity(), giveDataModels);
         binding.recyclerviewTake.setAdapter(adapter);
 
-        database.getReference().child("Food-Post")
-                        .addChildEventListener(new ChildEventListener() {
+        database.getReference()
+                .child("Food-Post")
+              //  .child(FirebaseAuth.getInstance().getUid())
+                .addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                                     GiveDataModel data = snapshot.getValue(GiveDataModel.class);
