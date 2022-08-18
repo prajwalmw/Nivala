@@ -59,6 +59,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-config'
 
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     implementation 'com.google.android.gms:play-services-ads:21.1.0'
@@ -70,5 +72,5 @@ dependencies {
     implementation 'com.github.OMARIHAMZA:StoryView:1.0.2-alpha' // story view layout
     implementation "com.github.pgreze:android-reactions:1.3" // chat reactions
     implementation ('org.jitsi.react:jitsi-meet-sdk:6.0.0') { transitive = true } // free server for chat feature
-    implementation 'com.android.volley:volley:1.2.0' // image show similar to Glide
+    implementation 'com.android.volley:volley:1.2.0' // for calling api's similar Retrofit but Volley is product of Google.
 }

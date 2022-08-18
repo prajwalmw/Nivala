@@ -151,14 +151,7 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessagesAdapter(this, messages, senderRoom, receiverRoom);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                // Call smooth scroll
-               // binding.recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
-                binding.recyclerView.scrollToPosition(adapter.getItemCount()-1);
-            }
-        });
+        scrollToLatestItem(); // scroll recyclerview to latest item
 
         database.getReference().child("chats")
                 .child(senderRoom)
@@ -173,6 +166,7 @@ public class ChatActivity extends AppCompatActivity {
                             messages.add(message);
                         }
 
+                        scrollToLatestItem(); // scroll recyclerview to latest item
                         adapter.notifyDataSetChanged();
                     }
 
@@ -192,14 +186,7 @@ public class ChatActivity extends AppCompatActivity {
                     // TODO: handle exception
                 }
 
-                binding.recyclerView.post(new Runnable() { // after send show latest msg.
-                    @Override
-                    public void run() {
-                        // Call smooth scroll
-                        binding.recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
-                    }
-                });
-
+                scrollToLatestItem(); // scroll recyclerview to latest item
                 String messageTxt = binding.messageBox.getText().toString();
 
                 Date date = new Date();
@@ -290,8 +277,9 @@ public class ChatActivity extends AppCompatActivity {
             String url = "https://fcm.googleapis.com/fcm/send";
 
             JSONObject data = new JSONObject();
-            data.put("title", name);
-            data.put("body", message);
+            data.put("title", name); // user-name
+            data.put("body", message); // message
+
             JSONObject notificationData = new JSONObject();
             notificationData.put("notification", data);
             notificationData.put("to", token);
@@ -311,7 +299,7 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> map = new HashMap<>();
-                    String key = "Key=AAAASn2Fs4A:APA91bGdTVxFBP-V0NN_zLjQTUb7yr9Shy0sYcSN2MvHxTksz11FktDxUt44hKD3CyD2ghCX61RGJW25F0mBPpTBrSArmo9emaKP8HqRQGe5A8vrdygKbY-Kfph9YvaeQnPmif5a1Zr7";
+                    String key = "Key=AAAAqQaIb-E:APA91bGtHsbxEK_LAWZ8Ek-Z1KIJv6H4tvDcBow0UD64HNkJ57bLHXUs6A1AY5kTDHVHYkWCSRj_iMkFikZGOZ1hjsa2Qnzhz51dggXmzIbvICVj1d9e60dzSkeZoMD03vHweQHNwQVV";
                     map.put("Content-Type", "application/json");
                     map.put("Authorization", key);
 
@@ -442,5 +430,16 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
+    }
+
+    private void scrollToLatestItem() {
+        binding.recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                // Call smooth scroll
+                // binding.recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+                binding.recyclerView.scrollToPosition(adapter.getItemCount()-1);
+            }
+        });
     }
 }
