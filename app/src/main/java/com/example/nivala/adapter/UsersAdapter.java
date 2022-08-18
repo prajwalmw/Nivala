@@ -10,11 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.nivala.ChatActivity;
+import com.example.nivala.ui.chat.ChatActivity;
 import com.example.nivala.R;
 import com.example.nivala.databinding.RowConversationBinding;
 import com.example.nivala.model.User;
-import com.example.nivala.ui.chat.ChatFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

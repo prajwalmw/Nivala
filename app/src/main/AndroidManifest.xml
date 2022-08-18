@@ -18,19 +18,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nivala">
+
         <activity
-            android:name=".ChatActivity"
+            android:name=".ui.chat.ChatActivity"
             android:exported="true"
             android:theme="@style/Theme.Nivala.NoActionBar"/>
+
         <activity
             android:name=".UserSetupScreen"
             android:exported="true" />
+
         <activity
             android:name=".SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Nivala.NoActionBar"></activity>
+
         <activity
             android:name=".ProfileOTP_Login"
             android:exported="true">
@@ -48,6 +52,7 @@
         <activity
             android:name=".Details"
             android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -56,6 +61,15 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".MyFirstbaseService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

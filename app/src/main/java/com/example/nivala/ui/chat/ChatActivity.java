@@ -1,4 +1,4 @@
-package com.example.nivala;
+package com.example.nivala.ui.chat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -24,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.nivala.R;
 import com.example.nivala.adapter.MessagesAdapter;
 import com.example.nivala.databinding.ActivityChatBinding;
 import com.example.nivala.model.Message;
@@ -149,6 +151,14 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessagesAdapter(this, messages, senderRoom, receiverRoom);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                // Call smooth scroll
+               // binding.recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+                binding.recyclerView.scrollToPosition(adapter.getItemCount()-1);
+            }
+        });
 
         database.getReference().child("chats")
                 .child(senderRoom)
@@ -175,6 +185,21 @@ public class ChatActivity extends AppCompatActivity {
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
+                binding.recyclerView.post(new Runnable() { // after send show latest msg.
+                    @Override
+                    public void run() {
+                        // Call smooth scroll
+                        binding.recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+                    }
+                });
+
                 String messageTxt = binding.messageBox.getText().toString();
 
                 Date date = new Date();
