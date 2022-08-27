@@ -136,7 +136,7 @@ public class Details extends AppCompatActivity {
                         model.setFoodType("Packaged");
                     Log.e("details", "position: "+ model.getFoodType());
                     model.setExpiry(binding.expiryEditText.getText().toString());
-                    model.setState(binding.stateEditText.getText().toString());
+                    model.setState(binding.stateEditText.getText().toString().trim());
                     model.setCity(binding.cityEditText.getText().toString());
                     model.setPickupAddress(binding.addressEditText.getText().toString());
                     model.setPickupDate(binding.pickupDateEditText.getText().toString());
@@ -192,7 +192,7 @@ public class Details extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                 .setTitleText(title)
-                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(c.getTime().getHours())
                 .setMinute(c.getTime().getMinutes())
                 .build();

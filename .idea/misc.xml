@@ -51,6 +51,7 @@
         <entry key="..\:/Nivala/app/src/main/res/layout/buy_with_googlepay_button.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/demo_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/demo_status.xml" value="0.20416666666666666" />
+        <entry key="..\:/Nivala/app/src/main/res/layout/dialog_info.xml" value="0.25" />
         <entry key="..\:/Nivala/app/src/main/res/layout/donate_image_listitem.xml" value="0.33" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_chat.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_dashboard.xml" value="0.20416666666666666" />
@@ -60,6 +61,7 @@
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_notifications.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_selfiepoint.xml" value="0.25" />
         <entry key="..\:/Nivala/app/src/main/res/layout/fragment_take.xml" value="0.20416666666666666" />
+        <entry key="..\:/Nivala/app/src/main/res/layout/info_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/item_receive.xml" value="0.1" />
         <entry key="..\:/Nivala/app/src/main/res/layout/item_sent.xml" value="0.20416666666666666" />
         <entry key="..\:/Nivala/app/src/main/res/layout/item_status.xml" value="0.20416666666666666" />
