@@ -66,6 +66,7 @@
                 android:background="@drawable/textbox_outline"
                 android:ems="10"
                 android:hint="Type your name*"
+                android:inputType="textCapWords"
                 android:layout_marginHorizontal="10dp"
                 android:padding="10dp" />
 
