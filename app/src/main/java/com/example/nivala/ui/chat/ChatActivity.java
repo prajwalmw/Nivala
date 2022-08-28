@@ -29,6 +29,7 @@ import com.example.nivala.R;
 import com.example.nivala.adapter.MessagesAdapter;
 import com.example.nivala.databinding.ActivityChatBinding;
 import com.example.nivala.model.Message;
+import com.example.nivala.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -69,8 +70,11 @@ public class ChatActivity extends AppCompatActivity {
     String senderUid;
     String receiverUid;
     String token;
+    String profile;
     String name;
     URL serverURL;
+    User sender_user;
+    String s_name, s_token, s_image, s_uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +106,22 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         String name = getIntent().getStringExtra("name");
-        String profile = getIntent().getStringExtra("image");
+        profile = getIntent().getStringExtra("image");
         String token = getIntent().getStringExtra("token");
+        receiverUid = getIntent().getStringExtra("uid"); // this id will be of the one to whom you are sending the msg.
+        senderUid = FirebaseAuth.getInstance().getUid();
 
-        //Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+        database.getReference().child("users").child(FirebaseAuth.getInstance().getUid())
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    sender_user = snapshot.getValue(User.class);
+            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+        });
 
         binding.name.setText(name);
         Glide.with(ChatActivity.this).load(profile)
@@ -119,8 +135,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        receiverUid = getIntent().getStringExtra("uid");
-        senderUid = FirebaseAuth.getInstance().getUid();
 
         database.getReference().child("presence").child(receiverUid)
                 .addValueEventListener(new ValueEventListener() {
@@ -179,6 +193,10 @@ public class ChatActivity extends AppCompatActivity {
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(binding.messageBox.getText().toString().trim().equalsIgnoreCase("")) {
+                    Toast.makeText(ChatActivity.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 try {
                     InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -216,7 +234,7 @@ public class ChatActivity extends AppCompatActivity {
                                         .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                sendNotification(name, message.getMessage(), token);
+                                                sendNotification(name, message.getMessage(), token, profile);
                                             }
                                         });
                             }
@@ -270,18 +288,21 @@ public class ChatActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    void sendNotification(String name, String message, String token) {
+    void sendNotification(String name, String message, String token, String profile) {
         try {
             RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = "https://fcm.googleapis.com/fcm/send";
 
-            JSONObject data = new JSONObject();
-            data.put("title", name); // user-name
+            JSONObject data = new JSONObject(); // here the one who is sending the msg his details must come here.
+            data.put("name", sender_user.getName()); // user-name
             data.put("body", message); // message
+            data.put("token", sender_user.getToken());
+            data.put("image", sender_user.getProfileImage());
+            data.put("uid", sender_user.getUid());
 
             JSONObject notificationData = new JSONObject();
-            notificationData.put("notification", data);
+            notificationData.put("data", data); // sending value to "data" is very imp to trigger notifi in both fore and background.
             notificationData.put("to", token);
 
             JsonObjectRequest request = new JsonObjectRequest(url, notificationData
@@ -440,7 +461,6 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Call smooth scroll
-                // binding.recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
                 binding.recyclerView.scrollToPosition(adapter.getItemCount()-1);
             }
         });

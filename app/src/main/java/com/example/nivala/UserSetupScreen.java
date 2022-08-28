@@ -8,15 +8,21 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.example.nivala.databinding.ActivityUserSetupScreenBinding;
 import com.example.nivala.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -31,6 +37,7 @@ public class UserSetupScreen extends AppCompatActivity {
     FirebaseStorage storage;
     Uri selectedImage;
     ProgressDialog dialog;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +52,31 @@ public class UserSetupScreen extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
-
         getSupportActionBar().hide();
+
+//        database.getReference().child("users").child(auth.getCurrentUser().getUid())
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        user = snapshot.getValue(User.class);
+//                        if(user != null) {
+//                            Log.v("user", "userValue: "+ user + ", " + user.getProfileImage() + ", " + user.getName());
+//                          //  binding.imageView.setImageURI(Uri.parse(user.getProfileImage()));
+//                            Glide.with(UserSetupScreen.this)
+//                                    .load(user.getProfileImage())
+//                                    .placeholder(R.drawable.avatar)
+//                                    .into(binding.imageView);
+//                            binding.nameBox.setText(user.getName());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+
+
 
         binding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override

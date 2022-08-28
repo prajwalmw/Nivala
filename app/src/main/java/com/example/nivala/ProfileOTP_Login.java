@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.nivala.databinding.ActivityProfileOtpLoginBinding;
@@ -45,7 +46,8 @@ public class ProfileOTP_Login extends AppCompatActivity {
         mauth = FirebaseAuth.getInstance();
 
         // Checks if user is already logged in or not.
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = mauth.getCurrentUser();
+        Log.v("user", "user_: " + user);
         if (user != null) { // TODO: user != null
             startActivity(new Intent(ProfileOTP_Login.this, MainActivity.class));
         }
