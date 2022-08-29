@@ -101,6 +101,7 @@ public class MyFirstbaseService extends FirebaseMessagingService {
                         .setContentText(messageBody)
 //                        .setDefaults(NotificationCompat.DEFAULT_ALL)
                         .setSound(defaultSoundUri)
+                        .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
                         .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
