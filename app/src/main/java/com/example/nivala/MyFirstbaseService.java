@@ -44,6 +44,7 @@ public class MyFirstbaseService extends FirebaseMessagingService {
             "fcm_fallback_notification_channel";
     public static final String FCM_FALLBACK_NOTIFICATION_CHANNEL_LABEL =
             "fcm_fallback_notification_channel_label";
+    Bitmap bitmap = null;
 
     @Override
     public void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage) {
@@ -69,9 +70,8 @@ public class MyFirstbaseService extends FirebaseMessagingService {
         intent.putExtra("uid",uid);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        Bitmap bitmap = null;
         try {
-            bitmap = Glide.with(this).asBitmap().load(image).submit().get();
+            bitmap = Glide.with(this).asBitmap().load(image).placeholder(R.drawable.avatar).submit().get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -96,7 +96,7 @@ public class MyFirstbaseService extends FirebaseMessagingService {
                         .setSmallIcon(R.mipmap.ic_launcher_round)
 //                        .setStyle(
 //                                new NotificationCompat.BigPictureStyle().bigPicture(bitmap))
-                        .setLargeIcon(getCircularBitmap(bitmap))
+                        .setLargeIcon(getCircularBitmap(bitmap)) // Todo: #crash: MyFirstbaseService.java line 127 bitmap null
                         .setContentTitle(title)
                         .setContentText(messageBody)
 //                        .setDefaults(NotificationCompat.DEFAULT_ALL)

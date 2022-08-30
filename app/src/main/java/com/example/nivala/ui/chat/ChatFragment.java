@@ -83,44 +83,45 @@ public class ChatFragment extends Fragment {
                 .build();
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
 
-        mFirebaseRemoteConfig.fetchAndActivate().addOnSuccessListener(new OnSuccessListener<Boolean>() {
-            @Override
-            public void onSuccess(Boolean aBoolean) {
-
-                String backgroundImage = mFirebaseRemoteConfig.getString("backgroundImage");
-                Glide.with(ChatFragment.this)
-                        .load(backgroundImage)
-                        .into(binding.backgroundImage);
-
-                /* Toolbar Color */
-                String toolbarColor = mFirebaseRemoteConfig.getString("toolbarColor");
-                String toolBarImage = mFirebaseRemoteConfig.getString("toolbarImage");
-                boolean isToolBarImageEnabled = mFirebaseRemoteConfig.getBoolean("toolBarImageEnabled");
-
-
-
-                if(isToolBarImageEnabled) {
-                    Glide.with(ChatFragment.this)
-                            .load(toolBarImage)
-                            .into(new CustomTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull @NotNull Drawable resource,
-                                                            @Nullable @org.jetbrains.annotations.Nullable
-                                                                    Transition<? super Drawable> transition) {
-                                  //  getSupportActionBar().setBackgroundDrawable(resource);
-                                }
-
-                                @Override
-                                public void onLoadCleared(@Nullable @org.jetbrains.annotations.Nullable Drawable placeholder) {
-
-                                }
-                            });
-                } else {
-                  //  getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("red")));
-                }
-
-            }
-        });
+        // Todo: #crash: Preconditions.java line 29 .load(backgroundImage) this line problem.
+//        mFirebaseRemoteConfig.fetchAndActivate().addOnSuccessListener(new OnSuccessListener<Boolean>() {
+//            @Override
+//            public void onSuccess(Boolean aBoolean) {
+//
+//                String backgroundImage = mFirebaseRemoteConfig.getString("backgroundImage");
+//                Glide.with(ChatFragment.this)
+//                        .load(backgroundImage)
+//                        .into(binding.backgroundImage);
+//
+//                /* Toolbar Color */
+//                String toolbarColor = mFirebaseRemoteConfig.getString("toolbarColor");
+//                String toolBarImage = mFirebaseRemoteConfig.getString("toolbarImage");
+//                boolean isToolBarImageEnabled = mFirebaseRemoteConfig.getBoolean("toolBarImageEnabled");
+//
+//
+//
+//                if(isToolBarImageEnabled) {
+//                    Glide.with(ChatFragment.this)
+//                            .load(toolBarImage)
+//                            .into(new CustomTarget<Drawable>() {
+//                                @Override
+//                                public void onResourceReady(@NonNull @NotNull Drawable resource,
+//                                                            @Nullable @org.jetbrains.annotations.Nullable
+//                                                                    Transition<? super Drawable> transition) {
+//                                  //  getSupportActionBar().setBackgroundDrawable(resource);
+//                                }
+//
+//                                @Override
+//                                public void onLoadCleared(@Nullable @org.jetbrains.annotations.Nullable Drawable placeholder) {
+//
+//                                }
+//                            });
+//                } else {
+//                  //  getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("red")));
+//                }
+//
+//            }
+//        });
 
         database = FirebaseDatabase.getInstance();
 
