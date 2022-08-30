@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    android:id="@+id/cv_id"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:paddingTop="20dp"
-    android:paddingStart="20dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPadding="20dp"
+    app:cardElevation="10dp"
+    app:cardPreventCornerOverlap="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
     <TextView
         android:id="@+id/fooditem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Food Item(s)"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"/>
 
     <TextView
@@ -23,18 +32,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Food Item(s) value"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"/>
+        />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/bg_divider"/>
 
     <TextView
         android:id="@+id/foodType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Food Type"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"/>
 
     <TextView
@@ -42,18 +58,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Food type value"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginTop="5dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/bg_divider"/>
 
     <TextView
         android:id="@+id/quan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quantity"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"/>
 
     <TextView
@@ -61,18 +83,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quantity value"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginTop="5dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/bg_divider"/>
 
     <TextView
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Phone no."
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"/>
 
     <TextView
@@ -80,18 +108,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Phone no. value"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginTop="5dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/bg_divider"/>
 
     <TextView
         android:id="@+id/paddr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pickup Address"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"/>
 
     <TextView
@@ -99,18 +133,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pickup Address value"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginTop="5dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/bg_divider"/>
 
     <TextView
         android:id="@+id/pdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pickup Date"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"/>
 
     <TextView
@@ -118,18 +158,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pickup Date value"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginTop="5dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/bg_divider"/>
 
     <TextView
         android:id="@+id/ptime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pickup Time"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"/>
 
     <TextView
@@ -137,11 +183,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pickup Time value"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
         />
 
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.cardview.widget.CardView>
