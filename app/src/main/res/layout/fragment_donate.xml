@@ -63,6 +63,7 @@
         app:cornerRadius="30dp"
         app:icon="@drawable/watch_ads"
         app:iconGravity="textStart"
+        android:theme="@style/Theme.MaterialComponents.Light"
         app:iconPadding="10dp" />
 
     <com.google.android.material.button.MaterialButton
@@ -79,6 +80,7 @@
         android:textSize="14sp"
         app:cornerRadius="30dp"
         app:icon="@drawable/googlepay_button_content"
+        android:theme="@style/Theme.MaterialComponents.Light"
         app:iconGravity="textEnd"
         app:iconPadding="10dp"
         app:iconTint="@null" />

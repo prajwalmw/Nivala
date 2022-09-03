@@ -67,7 +67,7 @@ public class ChatFragment extends Fragment {
     TopStatusAdapter statusAdapter;
     ArrayList<UserStatus> userStatuses;
     ProgressDialog dialog;
-    User user;
+  //  User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -77,11 +77,11 @@ public class ChatFragment extends Fragment {
         binding = FragmentChatBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(0)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+//        FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+//        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+//                .setMinimumFetchIntervalInSeconds(0)
+//                .build();
+//        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
 
         // Todo: #crash: Preconditions.java line 29 .load(backgroundImage) this line problem.
 //        mFirebaseRemoteConfig.fetchAndActivate().addOnSuccessListener(new OnSuccessListener<Boolean>() {
@@ -125,20 +125,20 @@ public class ChatFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
 
-        FirebaseMessaging.getInstance()
-                .getToken()
-                .addOnSuccessListener(new OnSuccessListener<String>() {
-                    @Override
-                    public void onSuccess(String token) {
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("token", token);
-                        database.getReference()
-                                .child("users")
-                                .child(FirebaseAuth.getInstance().getUid())
-                                .updateChildren(map);
-                        //Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        FirebaseMessaging.getInstance()
+//                .getToken()
+//                .addOnSuccessListener(new OnSuccessListener<String>() {
+//                    @Override
+//                    public void onSuccess(String token) {
+//                        HashMap<String, Object> map = new HashMap<>();
+//                        map.put("token", token);
+//                        database.getReference()
+//                                .child("users")
+//                                .child(FirebaseAuth.getInstance().getUid())
+//                                .updateChildren(map);
+//                        //Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
 
         dialog = new ProgressDialog(ChatFragment.this.getContext());
@@ -149,26 +149,26 @@ public class ChatFragment extends Fragment {
         users = new ArrayList<>();
         userStatuses = new ArrayList<>();
 
-        database.getReference().child("users").child(FirebaseAuth.getInstance().getUid())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        user = snapshot.getValue(User.class);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//        database.getReference().child("users").child(FirebaseAuth.getInstance().getUid())
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                      //  user = snapshot.getValue(User.class); // current logged in user data.
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
 
         usersAdapter = new UsersAdapter(ChatFragment.this.getContext(), users);
-        statusAdapter = new TopStatusAdapter(ChatFragment.this.getContext(), userStatuses);
+       // statusAdapter = new TopStatusAdapter(ChatFragment.this.getContext(), userStatuses);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChatFragment.this.getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        binding.statusList.setLayoutManager(layoutManager);
-        binding.statusList.setAdapter(statusAdapter);
+//        binding.statusList.setLayoutManager(layoutManager);
+//        binding.statusList.setAdapter(statusAdapter);
         binding.recyclerView.setAdapter(usersAdapter);
 
 //        binding.recyclerView.showShimmerAdapter();
@@ -193,6 +193,7 @@ public class ChatFragment extends Fragment {
             }
         });
 
+/*
         database.getReference().child("stories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -224,6 +225,7 @@ public class ChatFragment extends Fragment {
 
             }
         });
+*/
 
 
 /*

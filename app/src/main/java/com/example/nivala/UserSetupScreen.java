@@ -52,7 +52,7 @@ public class UserSetupScreen extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
-        getSupportActionBar().hide();
+      //  getSupportActionBar().hide();
 
 //        database.getReference().child("users").child(auth.getCurrentUser().getUid())
 //                .addValueEventListener(new ValueEventListener() {

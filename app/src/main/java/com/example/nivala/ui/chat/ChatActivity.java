@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,8 +85,12 @@ public class ChatActivity extends AppCompatActivity {
 
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.toolbar);
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#005005"));
+
+        // Set BackgroundDrawable
+        binding.toolbar.setBackgroundDrawable(colorDrawable);
 
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -234,7 +241,7 @@ public class ChatActivity extends AppCompatActivity {
                                         .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                sendNotification(name, message.getMessage(), token, profile);
+                                                sendNotification(name, message.getMessage(), token, profile); // this calls fcm by hitting fcm api.
                                             }
                                         });
                             }
@@ -300,6 +307,7 @@ public class ChatActivity extends AppCompatActivity {
             data.put("token", sender_user.getToken());
             data.put("image", sender_user.getProfileImage());
             data.put("uid", sender_user.getUid());
+            data.put("activity", "ChatActivity");
 
             JSONObject notificationData = new JSONObject();
             notificationData.put("data", data); // sending value to "data" is very imp to trigger notifi in both fore and background.
@@ -314,10 +322,14 @@ public class ChatActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if(error.getMessage() != null)
+                    Log.v("volley", "error: " + error + ". : " + error.networkResponse);
+                    if(error.getMessage() != null) {
                         Toast.makeText(ChatActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    else
+                    }
+                    else {
                         Toast.makeText(ChatActivity.this, "Error in Volley", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             }) {
                 @Override
@@ -427,7 +439,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.chat_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -435,10 +447,11 @@ public class ChatActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.chhat:
                 connectVideoCall();
-                break;
-        }
+                return true;
 
-        return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void connectVideoCall() {

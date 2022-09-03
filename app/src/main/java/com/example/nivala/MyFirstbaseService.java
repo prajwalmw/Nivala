@@ -34,7 +34,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import jp.wasabeef.glide.transformations.BitmapTransformation;
@@ -45,6 +47,9 @@ public class MyFirstbaseService extends FirebaseMessagingService {
     public static final String FCM_FALLBACK_NOTIFICATION_CHANNEL_LABEL =
             "fcm_fallback_notification_channel_label";
     Bitmap bitmap = null;
+    public String NOTIFICATION_CHANNEL_ID = "1";
+    public String NOTIFICATION_CHANNEL_NAME = "Chat Notification";
+
 
     @Override
     public void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage) {
@@ -57,18 +62,31 @@ public class MyFirstbaseService extends FirebaseMessagingService {
         String token = data.get("token");
         String image = data.get("image");
         String uid = data.get("uid");
-        sendNotification(title, body, token, image, uid);
+        String activity = data.get("activity");
+        sendNotification(title, body, token, image, uid, activity);
         Log.v("fcm", "fcm_value: Title: "+ title + "\n, Message: " + body + "\n, Toke: " + token + "\n, Image: " + image);
 
     }
 
-    private void sendNotification(String title, String messageBody, String token, String image, String uid) {
-        Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("name",title);
-        intent.putExtra("token",token);
-        intent.putExtra("image",image);
-        intent.putExtra("uid",uid);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    private void sendNotification(String title, String messageBody, String token, String image, String uid, String activity) {
+        Intent intent = null;
+        if(activity.equalsIgnoreCase("ChatActivity")) {
+            intent = new Intent(this, ChatActivity.class);
+            intent.putExtra("name",title);
+            intent.putExtra("token",token);
+            intent.putExtra("image",image);
+            intent.putExtra("uid",uid);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        else {
+            intent = new Intent(this, MainActivity.class);
+            intent.putExtra("name",title);
+            intent.putExtra("token",token);
+            intent.putExtra("image",image);
+            intent.putExtra("uid",uid);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+
 
         try {
             bitmap = Glide.with(this).asBitmap().load(image).placeholder(R.drawable.avatar).submit().get();
@@ -89,10 +107,25 @@ public class MyFirstbaseService extends FirebaseMessagingService {
 
         }
 
-        String channelId = "1";
+        if(activity.equalsIgnoreCase("ChatActivity")) {
+            NOTIFICATION_CHANNEL_ID = "1";
+            NOTIFICATION_CHANNEL_NAME = "Chat Channel";
+        }
+        else {
+            NOTIFICATION_CHANNEL_ID = "2";
+            NOTIFICATION_CHANNEL_NAME = "Food Channel";
+        }
+
+        if(bitmap != null) {
+            bitmap = getCircularBitmap(bitmap);
+        }
+        else {
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.avatar);
+        }
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this, channelId)
+                new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                         .setSmallIcon(R.mipmap.ic_launcher_round)
 //                        .setStyle(
 //                                new NotificationCompat.BigPictureStyle().bigPicture(bitmap))
@@ -101,9 +134,9 @@ public class MyFirstbaseService extends FirebaseMessagingService {
                         .setContentText(messageBody)
 //                        .setDefaults(NotificationCompat.DEFAULT_ALL)
                         .setSound(defaultSoundUri)
-                        .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                         .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .setAutoCancel(true) // so that msg disappers from statusbar when clicked upon
 //                        .setFullScreenIntent(pendingIntent, true);
@@ -114,12 +147,12 @@ public class MyFirstbaseService extends FirebaseMessagingService {
 
         // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(channelId,
-                    "Chat Notifications",
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_NAME,
                     NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
         }
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify((int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE) /* ID of notification */, notificationBuilder.build());
     }
 
     protected Bitmap getCircularBitmap(Bitmap srcBitmap) {
