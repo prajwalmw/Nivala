@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.nivala.databinding.ActivityProfileOtpLoginBinding;
@@ -34,6 +37,12 @@ public class ProfileOTP_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProfileOtpLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // changing status bar color
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
 
         // Ads initialize only once.
         MobileAds.initialize(this, new OnInitializationCompleteListener() {

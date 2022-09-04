@@ -19,4 +19,9 @@
 <!--        <item name="windowActionBar">false</item>-->
 <!--        <item name="windowNoTitle">true</item>-->
 <!--    </style>-->
+
+    <style name="ShapeAppearanceOverlay.MyApp.Button.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

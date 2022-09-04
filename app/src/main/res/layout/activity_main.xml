@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:orientation="vertical"
-    android:weightSum="3"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/main_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -30,17 +30,27 @@
         android:id="@+id/nav_host_fragment_activity_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.7"
+        android:layout_height="wrap_content"
         app:defaultNavHost="true"
+        android:layout_below="@+id/main_relative"
         app:navGraph="@navigation/mobile_navigation" />
+
+    <TextView
+        android:id="@+id/poweredBy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:gravity="center"
+        android:layout_below="@id/nav_host_fragment_activity_main"
+        android:layout_gravity="center"
+        android:text="Powered by nivala" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_nav_menu" />
 
-</LinearLayout>
+</RelativeLayout>

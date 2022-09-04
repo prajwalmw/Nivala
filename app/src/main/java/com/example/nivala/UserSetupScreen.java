@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,12 @@ public class UserSetupScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityUserSetupScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // changing status bar color
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Updating profile...");

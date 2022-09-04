@@ -45,9 +45,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.jitsi.meet.sdk.JitsiMeet;
-import org.jitsi.meet.sdk.JitsiMeetActivity;
-import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
+//import org.jitsi.meet.sdk.JitsiMeet;
+//import org.jitsi.meet.sdk.JitsiMeetActivity;
+//import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -101,16 +101,16 @@ public class ChatActivity extends AppCompatActivity {
 
         messages = new ArrayList<>();
 
-        try {
-            serverURL = new URL("https://meet.jit.si");
-            JitsiMeetConferenceOptions defaultOptions =
-                    new JitsiMeetConferenceOptions.Builder()
-                            .setServerURL(serverURL)
-                            .build();
-            JitsiMeet.setDefaultConferenceOptions(defaultOptions);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            serverURL = new URL("https://meet.jit.si");
+//            JitsiMeetConferenceOptions defaultOptions =
+//                    new JitsiMeetConferenceOptions.Builder()
+//                            .setServerURL(serverURL)
+//                            .build();
+//            JitsiMeet.setDefaultConferenceOptions(defaultOptions);
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
 
         String name = getIntent().getStringExtra("name");
         profile = getIntent().getStringExtra("image");
@@ -455,12 +455,12 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void connectVideoCall() {
-        JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
-                .setRoom("Prajwal456")
-                // .setWelcomePageEnabled(false)
-                .build();
-
-        JitsiMeetActivity.launch(ChatActivity.this, options);
+//        JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+//                .setRoom("Prajwal456")
+//                // .setWelcomePageEnabled(false)
+//                .build();
+//
+//        JitsiMeetActivity.launch(ChatActivity.this, options);
     }
 
     @Override

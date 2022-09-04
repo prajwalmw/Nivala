@@ -29,14 +29,14 @@
         <activity
             android:name=".UserSetupScreen"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.Nivala"/>
 
         <activity
             android:name=".SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.Nivala"></activity>
 
         <activity
             android:name=".ProfileOTP_Login"
