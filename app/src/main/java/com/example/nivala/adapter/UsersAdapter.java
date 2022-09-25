@@ -2,6 +2,7 @@ package com.example.nivala.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
                             SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
                             holder.binding.msgTime.setText(dateFormat.format(new Date(time)));
                             //  holder.binding.msgTime.setTextColor(context.getResources().getColor(R.color.black));
-                            holder.binding.lastMsg.setText(lastMsg);
+
+                            if (user.isIsblocked()) {
+                                holder.binding.lastMsg.setText(Html.fromHtml("<b>You have blocked this user!</b>"));
+                                holder.binding.lastMsg.setTextColor(context.getColor(R.color.red));
+                            }
+                            else
+                                holder.binding.lastMsg.setText(lastMsg);
+
                         } else {
                             holder.binding.lastMsg.setText("Tap to chat");
                         }
@@ -81,6 +89,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
                 .placeholder(R.drawable.avatar)
                 .into(holder.binding.profile);
 
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +98,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
                 intent.putExtra("image", user.getProfileImage());
                 intent.putExtra("uid", user.getUid());
                 intent.putExtra("token", user.getToken());
+                intent.putExtra("block", user.isIsblocked());
                 context.startActivity(intent);
             }
         });

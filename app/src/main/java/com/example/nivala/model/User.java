@@ -2,6 +2,7 @@ package com.example.nivala.model;
 
 public class User {
     private String uid, name, phoneNumber, profileImage, token;
+    private boolean isblocked = false;
 
     public User() {
 
@@ -52,5 +53,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public boolean isIsblocked() {
+        return isblocked;
+    }
+
+    public void setIsblocked(boolean isblocked) {
+        this.isblocked = isblocked;
     }
 }

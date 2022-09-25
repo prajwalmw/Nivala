@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,6 +68,8 @@ public class ChatFragment extends Fragment {
     TopStatusAdapter statusAdapter;
     ArrayList<UserStatus> userStatuses;
     ProgressDialog dialog;
+    static final String currentId = FirebaseAuth.getInstance().getUid();
+    public static final String TAG = "ChatFragment";
   //  User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -174,17 +177,84 @@ public class ChatFragment extends Fragment {
 //        binding.recyclerView.showShimmerAdapter();
 //        binding.statusList.showShimmerAdapter();
 
+        // reading all the users that exists...and here itself checking if the user is blocked by
+        // someone than that someone shouldnt show up here...
         database.getReference().child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 users.clear();
                 for(DataSnapshot snapshot1 : snapshot.getChildren()) {
                     User user = snapshot1.getValue(User.class);
-                    if(!user.getUid().equals(FirebaseAuth.getInstance().getUid()))
-                        users.add(user);
+                    if(!user.getUid().equals(FirebaseAuth.getInstance().getUid())) {
+                        // now logic of Display only those users that are not blocked and hv not blocked me as well.
+
+                        //2. Other user has blocked me so now he should nt be seen in my lists ie. dont add that user in my list.
+                        String otherBlockMe =  user.getUid() + currentId; // suffix
+                        Log.v(TAG, "otherBlockMe_ID: " + otherBlockMe);
+
+                        // now check in chat branch if this ID is present or not.
+                        // read chat branch for the ID is present than read block key for true value based on this make the users list.
+                        database.getReference().child("chats").child(otherBlockMe).child("block").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Boolean block = snapshot.getValue(Boolean.class);
+                                Log.v(TAG, "other_block_value: " + block);
+                                if (block != null) {
+                                    if (block) {
+                                        user.setIsblocked(true); // ie. this user has blocked me on his end so dont add him.
+                                    } else {
+                                        user.setIsblocked(false);
+                                        users.add(user); // ie. this user has not blocked me on his end.
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.v(TAG, "Error of Chat is: " + error.getDetails());
+                            }
+                        });
+                        //2. end
+
+
+                        //1. I have blocked some user.
+                        String meBlock = currentId + user.getUid(); // prefix
+                        Log.v(TAG, "meBlockID: " + meBlock);
+
+                        // now check in chat branch if this ID is present or not.
+                        // read chat branch for the ID is present than read block key for true value based on this make the users list.
+                        database.getReference().child("chats").child(meBlock).child("block").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Boolean block = snapshot.getValue(Boolean.class);
+                                    Log.v(TAG, "block_value: " + block);
+                                    if (block != null) {
+                                        if (block) {
+                                            user.setIsblocked(true);
+                                        } else {
+                                            user.setIsblocked(false);
+                                        }
+                                    }
+
+                                usersAdapter.notifyDataSetChanged(); // TODO: need to add later.
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.v(TAG, "Error of Chat is: " + error.getDetails());
+                            }
+                        });
+                        //1. end
+
+
+
+//                        users.add(user); // TODO: need to add later.
+//                        usersAdapter.notifyDataSetChanged(); // TODO: need to add later.
+                    }
                 }
                // binding.recyclerView.hideShimmerAdapter();
-                usersAdapter.notifyDataSetChanged();
+
+
             }
 
             @Override
@@ -244,9 +314,10 @@ public class ChatFragment extends Fragment {
             }
         });
 */
-
         return root;
     }
+
+
 
  /*   @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -303,14 +374,12 @@ public class ChatFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(currentId).setValue("Online");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(currentId).setValue("Offline");
     }
 

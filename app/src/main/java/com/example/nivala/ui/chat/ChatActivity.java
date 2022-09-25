@@ -78,6 +78,7 @@ public class ChatActivity extends AppCompatActivity {
     URL serverURL;
     User sender_user;
     String s_name, s_token, s_image, s_uid;
+    boolean block = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,8 @@ public class ChatActivity extends AppCompatActivity {
         profile = getIntent().getStringExtra("image");
         String token = getIntent().getStringExtra("token");
         receiverUid = getIntent().getStringExtra("uid"); // this id will be of the one to whom you are sending the msg.
+        block = getIntent().getBooleanExtra("block", false);
+
         senderUid = FirebaseAuth.getInstance().getUid();
 
         database.getReference().child("users").child(FirebaseAuth.getInstance().getUid())
@@ -124,10 +127,10 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     sender_user = snapshot.getValue(User.class);
             }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
+            }
         });
 
         binding.name.setText(name);
@@ -197,6 +200,15 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
 
+        if (block) {
+            binding.messageBox.setEnabled(false);
+            binding.messageBox.setHint("You have blocked this user");
+        }
+        else {
+            binding.messageBox.setEnabled(true);
+            binding.messageBox.setHint("Type a message...");
+        }
+
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,6 +216,7 @@ public class ChatActivity extends AppCompatActivity {
                     Toast.makeText(ChatActivity.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 try {
                     InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -223,6 +236,7 @@ public class ChatActivity extends AppCompatActivity {
                 HashMap<String, Object> lastMsgObj = new HashMap<>();
                 lastMsgObj.put("lastMsg", message.getMessage());
                 lastMsgObj.put("lastMsgTime", date.getTime());
+                lastMsgObj.put("block", false);
 
                 database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj); // Updating the values...
                 database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
@@ -387,6 +401,7 @@ public class ChatActivity extends AppCompatActivity {
                                         HashMap<String, Object> lastMsgObj = new HashMap<>();
                                         lastMsgObj.put("lastMsg", message.getMessage());
                                         lastMsgObj.put("lastMsgTime", date.getTime());
+                                        lastMsgObj.put("block", false);
 
                                         database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
                                         database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
@@ -439,6 +454,11 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.chat_menu, menu);
+        if (block)
+            menu.findItem(R.id.block).setTitle("Unblock");
+        else
+            menu.findItem(R.id.block).setTitle("Block");
+
         return true;
     }
 
@@ -459,10 +479,9 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void blockUser() {
-        HashMap<String, Object> lastMsgObj = new HashMap<>();
-        lastMsgObj.put("block_status", "Block");
-
-        database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj); // Updating the values...
+        HashMap<String, Object> block_key = new HashMap<>();
+        block_key.put("block" , true);
+        database.getReference().child("chats").child(senderRoom).updateChildren(block_key); // Updating the values...
     }
 
     private void connectVideoCall() {
