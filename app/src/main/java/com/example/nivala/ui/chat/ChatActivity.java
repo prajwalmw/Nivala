@@ -224,7 +224,7 @@ public class ChatActivity extends AppCompatActivity {
                 lastMsgObj.put("lastMsg", message.getMessage());
                 lastMsgObj.put("lastMsgTime", date.getTime());
 
-                database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
+                database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj); // Updating the values...
                 database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
 
                 database.getReference().child("chats")
@@ -449,9 +449,20 @@ public class ChatActivity extends AppCompatActivity {
                 connectVideoCall();
                 return true;
 
+            case R.id.block:
+                blockUser();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void blockUser() {
+        HashMap<String, Object> lastMsgObj = new HashMap<>();
+        lastMsgObj.put("block_status", "Block");
+
+        database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj); // Updating the values...
     }
 
     private void connectVideoCall() {

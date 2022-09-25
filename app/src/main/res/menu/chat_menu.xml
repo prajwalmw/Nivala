@@ -17,7 +17,9 @@
         app:showAsAction="never"
         />
 
-    <item android:title="Block"
+    <item
+        android:id="@+id/block"
+        android:title="Block"
         app:showAsAction="never" />
 
     <item android:title="Settings"
