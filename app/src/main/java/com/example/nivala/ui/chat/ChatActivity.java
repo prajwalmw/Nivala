@@ -212,6 +212,12 @@ public class ChatActivity extends AppCompatActivity {
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (block) {
+                    Toast.makeText(ChatActivity.this, "Unblock user to continue chatting...", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                }
                 if(binding.messageBox.getText().toString().trim().equalsIgnoreCase("")) {
                     Toast.makeText(ChatActivity.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
@@ -479,9 +485,26 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void blockUser() {
-        HashMap<String, Object> block_key = new HashMap<>();
-        block_key.put("block" , true);
-        database.getReference().child("chats").child(senderRoom).updateChildren(block_key); // Updating the values...
+        if (messages.size() > 0) {
+            HashMap<String, Object> block_key = new HashMap<>();
+            if (block) {
+                block_key.put("block" , false);
+                database.getReference().child("chats").child(senderRoom).updateChildren(block_key); // Updating the values...
+                binding.messageBox.setEnabled(false);
+                binding.messageBox.setHint("You have blocked this user");
+                Toast.makeText(this, "User is unblocked successfully!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                block_key.put("block" , true);
+                database.getReference().child("chats").child(senderRoom).updateChildren(block_key); // Updating the values...
+                binding.messageBox.setEnabled(true);
+                binding.messageBox.setHint("Type a message...");
+                Toast.makeText(this, "User is blocked successfully!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Toast.makeText(this, "You cannot block before sending any message to each other", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void connectVideoCall() {

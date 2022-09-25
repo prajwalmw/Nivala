@@ -54,11 +54,11 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
-* Created by Prajwal Maruti Waingankar on 28-04-2022, 23:40
-* Copyright (c) 2021 . All rights reserved.
-* Email: prajwalwaingankar@gmail.com
-* Github: prajwalmw
-*/
+ * Created by Prajwal Maruti Waingankar on 28-04-2022, 23:40
+ * Copyright (c) 2021 . All rights reserved.
+ * Email: prajwalwaingankar@gmail.com
+ * Github: prajwalmw
+ */
 
 public class ChatFragment extends Fragment {
     private FragmentChatBinding binding;
@@ -70,7 +70,7 @@ public class ChatFragment extends Fragment {
     ProgressDialog dialog;
     static final String currentId = FirebaseAuth.getInstance().getUid();
     public static final String TAG = "ChatFragment";
-  //  User user;
+    //  User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -167,7 +167,7 @@ public class ChatFragment extends Fragment {
 
 
         usersAdapter = new UsersAdapter(ChatFragment.this.getContext(), users);
-       // statusAdapter = new TopStatusAdapter(ChatFragment.this.getContext(), userStatuses);
+        // statusAdapter = new TopStatusAdapter(ChatFragment.this.getContext(), userStatuses);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChatFragment.this.getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
 //        binding.statusList.setLayoutManager(layoutManager);
@@ -183,20 +183,27 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 users.clear();
-                for(DataSnapshot snapshot1 : snapshot.getChildren()) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     User user = snapshot1.getValue(User.class);
-                    if(!user.getUid().equals(FirebaseAuth.getInstance().getUid())) {
+                    if (!user.getUid().equals(FirebaseAuth.getInstance().getUid())) {
                         // now logic of Display only those users that are not blocked and hv not blocked me as well.
 
                         //2. Other user has blocked me so now he should nt be seen in my lists ie. dont add that user in my list.
-                        String otherBlockMe =  user.getUid() + currentId; // suffix
+                        String otherBlockMe = user.getUid() + currentId; // suffix
                         Log.v(TAG, "otherBlockMe_ID: " + otherBlockMe);
 
                         // now check in chat branch if this ID is present or not.
                         // read chat branch for the ID is present than read block key for true value based on this make the users list.
+
                         database.getReference().child("chats").child(otherBlockMe).child("block").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (!snapshot.exists()) {
+                                    users.add(user);
+                                    usersAdapter.notifyDataSetChanged();
+                                    return;
+                                }
+
                                 Boolean block = snapshot.getValue(Boolean.class);
                                 Log.v(TAG, "other_block_value: " + block);
                                 if (block != null) {
@@ -226,15 +233,15 @@ public class ChatFragment extends Fragment {
                         database.getReference().child("chats").child(meBlock).child("block").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    Boolean block = snapshot.getValue(Boolean.class);
-                                    Log.v(TAG, "block_value: " + block);
-                                    if (block != null) {
-                                        if (block) {
-                                            user.setIsblocked(true);
-                                        } else {
-                                            user.setIsblocked(false);
-                                        }
+                                Boolean block = snapshot.getValue(Boolean.class);
+                                Log.v(TAG, "block_value: " + block);
+                                if (block != null) {
+                                    if (block) {
+                                        user.setIsblocked(true);
+                                    } else {
+                                        user.setIsblocked(false);
                                     }
+                                }
 
                                 usersAdapter.notifyDataSetChanged(); // TODO: need to add later.
                             }
@@ -247,12 +254,11 @@ public class ChatFragment extends Fragment {
                         //1. end
 
 
-
 //                        users.add(user); // TODO: need to add later.
 //                        usersAdapter.notifyDataSetChanged(); // TODO: need to add later.
                     }
                 }
-               // binding.recyclerView.hideShimmerAdapter();
+                // binding.recyclerView.hideShimmerAdapter();
 
 
             }
