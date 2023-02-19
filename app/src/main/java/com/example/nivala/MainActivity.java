@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.WHITE);
         }
 
+        // need to upate token else notific wont show up as it requires token.
         database = FirebaseDatabase.getInstance();
         FirebaseMessaging.getInstance()
                 .getToken()
