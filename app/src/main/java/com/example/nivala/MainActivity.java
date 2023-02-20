@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.nivala.ui.chat.ChatFragment;
 import com.google.android.gms.ads.MobileAds;
@@ -26,10 +28,11 @@ import com.example.nivala.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.razorpay.PaymentResultListener;
 
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PaymentResultListener {
 
     private ActivityMainBinding binding;
     FirebaseDatabase database;
@@ -76,6 +79,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
      //   NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Log.v("Paymnt: ", "Success: " + s);
+        Toast.makeText(MainActivity.this, "Hi Success: " + s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Log.v("Paymnt: ", "Error: " + s);
+        Toast.makeText(MainActivity.this, "Hi Error: " + s, Toast.LENGTH_SHORT).show();
     }
 
 //    @Override

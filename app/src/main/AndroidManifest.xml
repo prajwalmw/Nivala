@@ -24,17 +24,17 @@
 
         <activity
             android:name=".ui.chat.ChatActivity"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".UserSetupScreen"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>
 
@@ -53,7 +53,7 @@
 
         <activity
             android:name=".Details"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
@@ -78,7 +78,7 @@
             </intent-filter>
         </service>
 
-
+        <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
     </application>
 
 </manifest>

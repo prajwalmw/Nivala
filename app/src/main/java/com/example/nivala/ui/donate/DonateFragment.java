@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.nivala.R;
 import com.example.nivala.adapter.DonateImageAdapter;
 import com.example.nivala.databinding.FragmentDonateBinding;
 import com.example.nivala.databinding.FragmentGiveBinding;
@@ -28,6 +29,11 @@ import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -38,7 +44,7 @@ import java.util.ArrayList;
 * Github: prajwalmw
 */
 
-public class DonateFragment extends Fragment {
+public class DonateFragment extends Fragment implements PaymentResultListener {
 FragmentDonateBinding binding;
     final int UPI_PAYMENT = 0;
     private RewardedAd rewardedAd;
@@ -46,6 +52,7 @@ FragmentDonateBinding binding;
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917"; // test
     boolean isLoading;
     private DonateImageAdapter adapter;
+    private Checkout checkout = new Checkout();
 
     @Nullable
     @Override
@@ -62,12 +69,37 @@ FragmentDonateBinding binding;
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Checkout.preload(getActivity().getApplicationContext());
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
     public void payUsingUpi() {
+  /*      String sAmount = "1";
+        // rounding off the amount.
+        int amount = Math.round(Float.parseFloat(sAmount) * 100);
+        checkout.setKeyID("rzp_test_xh5plCqQSHlGTq");
+        checkout.setImage(R.mipmap.ic_launcher_round);
+        JSONObject object = new JSONObject();
+        try {
+            object.put("name", "Nivala");
+            object.put("description", "Test payment");
+//            object.put("theme.color", "#2E1E91");
+            object.put("currency", "INR");
+            object.put("amount", amount);
+         //   object.put("order_id", "order_LIPr13T6U02OJa");
+            object.put("prefill.contact", "7304154312");
+            object.put("prefill.email", "prajwalwaingankar@gmail.com");
+            checkout.open(DonateFragment.this.getActivity(), object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
 
         Uri uri =
                 new Uri.Builder()
@@ -75,21 +107,21 @@ FragmentDonateBinding binding;
                         .authority("pay")
                         .appendQueryParameter("pa", "7304154312@okbizaxis")  // virtual ID ** Need a merchant account
                         .appendQueryParameter("pn", "nivala" /*"your-merchant-name"*/)          // name
-                        .appendQueryParameter("mc", "BCR2DN4T4DNLPADO")          // optional // BCR2DN4T4DNLPADO // BCR2DN4TSCP6XIR2
+                        .appendQueryParameter("mc", "BCR2DN4TSCP6XIR2")          // optional // BCR2DN4T4DNLPADO // BCR2DN4TSCP6XIR2
                         .appendQueryParameter("tr", "134729489")     // optional -- can be random
                         .appendQueryParameter("tn",  "Thank you for the initiative")       // any note about payment
                         .appendQueryParameter("am", "1.0" /*"your-order-amount"*/)           // amount
                         .appendQueryParameter("cu", "INR").build();                // currency
 
         // Only for Google Pay...
-        String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
+     /*   String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
         int GOOGLE_PAY_REQUEST_CODE = 123;
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(uri);
         intent.setPackage(GOOGLE_PAY_PACKAGE_NAME);
-        startActivityForResult(intent, GOOGLE_PAY_REQUEST_CODE);
+        startActivityForResult(intent, GOOGLE_PAY_REQUEST_CODE);*/
 
-       /* // For all UPI related apps...
+        // For all UPI related apps...
         Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
         upiPayIntent.setData(uri);
         Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
@@ -97,7 +129,7 @@ FragmentDonateBinding binding;
             startActivityForResult(chooser, UPI_PAYMENT);
         } else {
             Toast.makeText(this.getActivity(),"No UPI app found, please install one to continue",Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
 
@@ -226,5 +258,17 @@ FragmentDonateBinding binding;
                         }
                     });
         }
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Log.v("Paymnt: ", "Success: " + s);
+        Toast.makeText(getActivity(), "Hi Success: " + s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Log.v("Paymnt: ", "Error: " + s);
+        Toast.makeText(getActivity(), "Hi Error: " + s, Toast.LENGTH_SHORT).show();
     }
 }
